@@ -1,0 +1,37 @@
+.form {
+    margin: 0 auto;
+    text-align: center;
+    color: black;
+    display: flex;
+    justify-content: start;
+    margin-top: 20px;
+  }
+  .form label {
+    text-align: left;
+    display: block;
+    font-size: 16px;
+    font-weight:lighter;
+    color: black;
+  }
+  .form h2 {
+    font-size: 20px;
+    color: blue;
+    margin-bottom: 10px;
+  }
+  .form input, .form textarea, .form select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    display: block;
+    color: black;
+  }
+  .form button {
+    background: Blue;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+  }

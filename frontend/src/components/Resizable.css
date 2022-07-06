@@ -1,0 +1,17 @@
+.resizeable {
+  border: 2px solid black;
+  grid-column: 1 / 3;
+  position: relative;
+  border-radius: 3px;
+  min-height: 100px;
+  max-height: 500px;
+}
+
+.resizer-t {
+  position: absolute;
+  cursor: row-resize;
+  height: 1px;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
