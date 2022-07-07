@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from "react";
-import "./Resizable.css"
+import "./Resizable.css";
+import "./Console.js"
+import Console from "./Console.js";
 
 const Resizable = () => {
   const ref = useRef(null);
@@ -39,10 +41,11 @@ const Resizable = () => {
     };
   }, []);
   return (
-      <div ref={ref} className="resizeable">
-        <div ref={refTop} className="resizer resizer-t"></div>
+    <div ref={ref} className="resizeable">
+      <Console className = "console"></Console>
+      <div ref={refTop} className="resizer resizer-t"></div>
     </div>
   );
-}
+};
 
 export default Resizable;

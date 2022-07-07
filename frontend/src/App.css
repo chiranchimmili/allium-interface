@@ -13,12 +13,12 @@ body {
   box-sizing: border-box;
 }
 
-.container div {
+.container > div {
   padding: 5px;
   font-size: 32px;
   font-family: Helvetica;
   font-weight: bold;
-  color: white;
+  color: black;
   border-radius: 10px;
 }
 

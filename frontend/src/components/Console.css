@@ -1,0 +1,42 @@
+.console {
+    background-color: black;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    align-items: flex-start;
+    font-size: 14px;
+
+}
+
+.console div {
+    flex-shrink: 0;
+    min-height: 0;
+    padding: 2px;
+    padding-left: 8px;
+}
+
+.console::-webkit-scrollbar {
+    width: 20px;
+    border-radius: 250px;
+    overflow: hidden;
+}
+
+.console::-webkit-scrollbar-track {
+    background: linear-gradient(0deg, rgba(0, 0, 255, 1) 0%, rgba(108, 0, 180) 100%);
+    border-radius: 250px;
+}
+
+.console::-webkit-scrollbar-thumb {
+    background: transparent;
+    box-shadow: 0px 0px 0px 100vh black;
+    border-radius: 25px;
+}
+.console::-webkit-scrollbar-corner {
+    background: transparent;
+    border-radius: 25px;
+}

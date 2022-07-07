@@ -3,6 +3,7 @@
   min-height: 0;
   min-height: 0;
   flex-direction: column;
+  overflow: auto;
 }
 
 .bloc-tabs {
