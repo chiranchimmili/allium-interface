@@ -22,21 +22,18 @@
 
 .console::-webkit-scrollbar {
     width: 20px;
-    border-radius: 250px;
-    overflow: hidden;
+    border-radius: 25px;
 }
 
 .console::-webkit-scrollbar-track {
-    background: linear-gradient(0deg, rgba(0, 0, 255, 1) 0%, rgba(108, 0, 180) 100%);
-    border-radius: 250px;
+    background: black;
+    border-radius: 25px;
 }
 
 .console::-webkit-scrollbar-thumb {
-    background: transparent;
-    box-shadow: 0px 0px 0px 100vh black;
-    border-radius: 25px;
+    border-radius: 100vh;
+    background: rgba(108, 0, 180, 1);
 }
-.console::-webkit-scrollbar-corner {
-    background: transparent;
+.console::-webkit-scrollbar-track-piece {
     border-radius: 25px;
 }

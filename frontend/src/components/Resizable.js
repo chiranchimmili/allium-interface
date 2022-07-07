@@ -7,6 +7,8 @@ const Resizable = () => {
   const ref = useRef(null);
   const refTop = useRef(null);
   useEffect(() => {
+    let console = document.querySelector('.console')
+    console.scrollTop = console.scrollHeight;
     const resizeableEle = ref.current;
     const styles = window.getComputedStyle(resizeableEle);
     let height = parseInt(styles.height, 10);
@@ -14,6 +16,7 @@ const Resizable = () => {
 
     // Top resize
     const onMouseMoveTopResize = (event) => {
+      console.scrollTop = console.scrollHeight;
       const dy = event.clientY - y;
       height = height - dy;
       y = event.clientY;
@@ -37,6 +40,7 @@ const Resizable = () => {
     resizerTop.addEventListener("mousedown", onMouseDownTopResize);
 
     return () => {
+
       resizerTop.removeEventListener("mousedown", onMouseDownTopResize);
     };
   }, []);
