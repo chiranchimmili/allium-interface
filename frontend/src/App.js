@@ -2,15 +2,14 @@ import "./App.css";
 import Resizable from "./components/Resizable";
 import Tabs from "./components/Tabs";
 import Console from "./components/Console"
+import Header from "./components/Header"
 
 function App() {
 
-
-  
   return (
     
       <div className="container">
-        <div className="header"></div>
+        <Header></Header>
         <div className="sidebar"></div>
         <div className="main">
           <Tabs></Tabs>

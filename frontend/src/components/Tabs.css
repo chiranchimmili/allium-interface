@@ -26,6 +26,7 @@
 .active-tabs  {
   background: white;
   border-bottom: 1px solid transparent;
+  border-color: purple;
 }
 
 .active-tabs::before {
