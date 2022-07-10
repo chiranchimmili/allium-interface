@@ -2,8 +2,11 @@ import "./Console.css"
 
 const Console = () => {
   return (
-    <div className="console">
-      <div>Welcome to ethernet traffic tester</div>
+    <div id="console-flex">
+      <div className="console">
+        <tr> <th colspan = "5">Welcome to ethernet traffic tester</th>
+        </tr>
+      </div>
     </div>
   );
 };

@@ -46,7 +46,7 @@ const Resizable = () => {
   }, []);
   return (
     <div ref={ref} className="resizeable">
-      <Console className = "console"></Console>
+      <Console></Console>
       <div ref={refTop} className="resizer resizer-t"></div>
     </div>
   );

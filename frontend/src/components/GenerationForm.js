@@ -13,10 +13,18 @@ const GenerationForm = () => {
     let output_console = document.querySelector('.console')
     axios.post('/', form)
       .then(function (response) {
-        let second = document.createElement('div');
-        second.innerHTML = "Event &nbsp; &nbsp;" + (new Date()).toLocaleTimeString('en-GB') + "&nbsp &nbsp &nbsp;" + response.data;
-        second.style.color = 'rgba(102,255,0,1)';
-        output_console.appendChild(second);
+        let row = document.createElement('tr');
+        let title = document.createElement('th')
+        title.innerHTML = "Event"
+        let time = document.createElement('th')
+        time.innerHTML = (new Date()).toLocaleTimeString('en-GB')
+        let desc = document.createElement('th')
+        desc.innerHTML = response.data
+        row.appendChild(title)
+        row.appendChild(time)
+        row.appendChild(desc)
+        row.style.color = 'rgba(102,255,0,1)';
+        output_console.appendChild(row);
         output_console.scrollTop = output_console.scrollHeight;
       })
       .catch(function (error) {
@@ -27,11 +35,19 @@ const GenerationForm = () => {
   const handleSave = (e) => {
     let output_console = document.querySelector('.console')
     e.preventDefault();
+    let row = document.createElement('tr');
+    let title = document.createElement('th')
+    title.innerHTML = "Info"
+    let time = document.createElement('th')
+    time.innerHTML = (new Date()).toLocaleTimeString('en-GB')
+    let desc = document.createElement('th')
+    desc.innerHTML = "Saving configuration..."
+    row.appendChild(title)
+    row.appendChild(time)
+    row.appendChild(desc)
+    row.style.color = 'rgba(0,191,255,1)';
+    output_console.appendChild(row)
     const generationForm = {"type" : type, "count" : packetCount, "length" : packetLength, "payload" : payload};
-    let first = document.createElement('div');
-    first.innerHTML = ("Info &nbsp; &nbsp;") + (new Date()).toLocaleTimeString('en-GB') + "&nbsp &nbsp &nbsp;" + "Saving configuration";
-    first.style.color = 'rgba(0,191,255,1)'
-    output_console.appendChild(first)
     output_console.scrollTop = output_console.scrollHeight;
     sendData(generationForm)
   };
