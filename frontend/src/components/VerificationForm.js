@@ -8,7 +8,7 @@ const VerificationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const generationForm = {};
+    //const generationForm = {};
   }
 
   return (

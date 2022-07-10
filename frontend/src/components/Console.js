@@ -3,8 +3,7 @@ import "./Console.css"
 const Console = () => {
   return (
     <div className="console">
-      <div>Welcome to etherent traffic tester</div>
-      
+      <div>Welcome to ethernet traffic tester</div>
     </div>
   );
 };

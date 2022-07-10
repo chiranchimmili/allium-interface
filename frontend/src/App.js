@@ -1,7 +1,6 @@
 import "./App.css";
 import Resizable from "./components/Resizable";
 import Tabs from "./components/Tabs";
-import Console from "./components/Console"
 import Header from "./components/Header"
 
 function App() {

@@ -10,14 +10,14 @@ const GenerationForm = () => {
   const type = 0;
 
   const sendData = (form) => {
+    let output_console = document.querySelector('.console')
     axios.post('/', form)
       .then(function (response) {
-        let console = document.querySelector('.console')
-        let z = document.createElement('div');
-        z.innerHTML = response.data;
-        z.style.color = 'rgba(15, 255, 80, 1)';
-        console.appendChild(z);
-        console.scrollTop = console.scrollHeight;
+        let second = document.createElement('div');
+        second.innerHTML = "Event &nbsp; &nbsp;" + (new Date()).toLocaleTimeString('en-GB') + "&nbsp &nbsp &nbsp;" + response.data;
+        second.style.color = 'rgba(102,255,0,1)';
+        output_console.appendChild(second);
+        output_console.scrollTop = output_console.scrollHeight;
       })
       .catch(function (error) {
         console.log(error);
@@ -25,8 +25,14 @@ const GenerationForm = () => {
   };
 
   const handleSave = (e) => {
+    let output_console = document.querySelector('.console')
     e.preventDefault();
     const generationForm = {"type" : type, "count" : packetCount, "length" : packetLength, "payload" : payload};
+    let first = document.createElement('div');
+    first.innerHTML = ("Info &nbsp; &nbsp;") + (new Date()).toLocaleTimeString('en-GB') + "&nbsp &nbsp &nbsp;" + "Saving configuration";
+    first.style.color = 'rgba(0,191,255,1)'
+    output_console.appendChild(first)
+    output_console.scrollTop = output_console.scrollHeight;
     sendData(generationForm)
   };
 

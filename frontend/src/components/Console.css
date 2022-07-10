@@ -1,3 +1,4 @@
+
 .console {
     background-color: black;
     position: absolute;
@@ -37,3 +38,4 @@
 .console::-webkit-scrollbar-track-piece {
     border-radius: 25px;
 }
+
