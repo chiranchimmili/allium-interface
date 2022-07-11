@@ -1,25 +1,35 @@
-.form {
+.inputs {
     margin: 0 auto;
     text-align: center;
     color: black;
-    display: flex;
-    justify-content: start;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: repeat(3, 1fr);
     margin-top: 20px;
-    overflow: auto;
+    margin: 20px;
+    gap: 10px;
+    width: 100%;
+    border-width: 1px;
   }
-  .form label {
+  .inputs form {
+    border: 1px solid gray;
+    max-height: 200px;
+    min-width: 200px;
+    padding: 5px;
+  }
+  .inputs label {
     text-align: left;
     display: block;
     font-size: 16px;
     font-weight:lighter;
     color: black;
   }
-  .form h2 {
+  .inputs h2 {
     font-size: 20px;
     color: blue;
     margin-bottom: 10px;
   }
-  .form input, .form textarea, .form select {
+  .inputs input, .inputs textarea, .inputs select {
     width: 100%;
     padding: 6px 10px;
     margin: 10px 0;
@@ -28,11 +38,29 @@
     display: block;
     color: black;
   }
-  .form button {
-    background: purple;
+  .inputs button {
+    background: #524eee;
     color: #fff;
     border: 0;
     padding: 8px;
     border-radius: 8px;
     cursor: pointer;
   }
+  .tabs-container::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 25px;
+  }
+  
+  .tabs-container::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 25px;
+  }
+  
+  .tabs-container::-webkit-scrollbar-thumb {
+    border-radius: 100vh;
+    background: #524eee;
+  }
+  .tabs-container::-webkit-scrollbar-track-piece {
+    border-radius: 25px;
+  }
+  

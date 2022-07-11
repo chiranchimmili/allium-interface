@@ -21,11 +21,10 @@ body {
   font-weight: bold;
   color: black;
   border-radius: 10px;
-  border-color: #4B0082;
+  border: 1.5px solid #524eee;
 }
 
 .sidebar {
-  border: 2px solid black;
   grid-row: 2 / 4;
   background-color: white;
 }
@@ -33,7 +32,6 @@ body {
 .main {
   display: flex;
   background-color: white;
-  border: 2px solid black;
   grid-row: 2 / 4
 }
 

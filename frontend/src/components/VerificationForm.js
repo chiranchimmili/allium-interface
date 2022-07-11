@@ -12,7 +12,7 @@ const VerificationForm = () => {
   }
 
   return (
-    <div className="form">
+    <div className="inputs">
       <form onSubmit={ handleSubmit }>
         <label>Packet Count:</label>
         <input 
