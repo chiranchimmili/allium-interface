@@ -46,6 +46,11 @@
     border-radius: 8px;
     cursor: pointer;
   }
+
+  input:disabled {
+    background-color: #F7F7F7;
+  }
+
   .tabs-container::-webkit-scrollbar {
     width: 10px;
     border-radius: 25px;
@@ -63,4 +68,5 @@
   .tabs-container::-webkit-scrollbar-track-piece {
     border-radius: 25px;
   }
+  
   

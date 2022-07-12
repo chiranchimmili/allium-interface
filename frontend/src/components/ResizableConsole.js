@@ -1,9 +1,8 @@
 import React, { useRef, useEffect } from "react";
-import "./Resizable.css";
-import "./Console.js"
+import "./ResizableConsole.css";
 import Console from "./Console.js";
 
-const Resizable = () => {
+const ResizableConsole = () => {
   const ref = useRef(null);
   const refTop = useRef(null);
   useEffect(() => {
@@ -52,4 +51,4 @@ const Resizable = () => {
   );
 };
 
-export default Resizable;
+export default ResizableConsole;

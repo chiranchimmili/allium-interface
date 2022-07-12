@@ -1,0 +1,22 @@
+.resizeableNav {
+    border: 2px solid black;
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+    position: relative;
+    border-radius: 3px;
+    min-width: 100px;
+    width: 275px;
+    max-width: 275px;
+    padding: 0px !important;
+  }
+  
+  .resizer-r {
+    position: absolute;
+    cursor: col-resize;
+    height: 100%;
+    right: 0;
+    top: 0;
+    width: 10px;
+    border-radius: 25px;
+  }
+  

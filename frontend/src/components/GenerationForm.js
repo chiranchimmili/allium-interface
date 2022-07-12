@@ -9,6 +9,8 @@ const GenerationForm = () => {
   const [burstLength, setBurstLength] = useState("120");
   const [payload, setPayload] = useState("Random");
   const [mode, setMode] = useState("Continuous");
+  const [IPG, setIPG] = useState("0");
+  const [IBG, setIBG] = useState("0");
 
   const type = 0;
 
@@ -78,8 +80,12 @@ const GenerationForm = () => {
               <label for="radio2">Fixed</label>
             </div>
             <div class="radio-item">
-              <input type="radio" name="radio" id="radio3" value = "Burst" onChange={(e) => setMode(e.currentTarget.value)}/>
-              <label for="radio3">Burst</label>
+              <input type="radio" name="radio" id="radio3" value = "Fixed-Burst" onChange={(e) => setMode(e.currentTarget.value)}/>
+              <label for="radio3">Fixed-Burst</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" name="radio" id="radio4" value = "Continuous-Burst" onChange={(e) => setMode(e.currentTarget.value)}/>
+              <label for="radio4">Continuous-Burst</label>
             </div>
           </div>
         </section>
@@ -89,14 +95,14 @@ const GenerationForm = () => {
         <input
           type="text"
           required
-          value={mode !== "Continuous" ? packetCount: "NA"}
-          disabled = {mode === "Continuous"}
+          value={mode === "Continuous" || mode === "Continuous-Burst" ? "N/A": packetCount}
+          disabled = {mode === "Continuous" || mode === "Continuous-Burst"}
           onChange={(e) => setPacketCount(e.target.value)}
         />
         <label>Packets per Burst:</label>
         <input
           required
-          value={mode === "Burst" ? burstLength: "NA"}
+          value={mode === "Continuous-Burst" || mode === "Fixed-Burst"? burstLength: "N/A"}
           disabled = {mode === "Continuous" || mode === "Fixed"}
           onChange={(e) => setBurstLength(e.target.value)}
         ></input>
@@ -132,17 +138,22 @@ const GenerationForm = () => {
       </form>
       <form class="gaps">
         <div id="diagram">
-          <span>PACK1</span> <span>IPG</span> <span>PACK2</span>{" "}
-          <span>IBG</span> <span>PACK1</span> <span> IPG</span> <span>PACK2</span>
+          <span>PKT1</span> <span>IPG</span> <span>PKT2</span>{" "}
+          <span>IBG</span> <span>PKT1</span> <span> IPG</span> <span>PKT2</span>
         </div>
         <div class="gaps-inputs">
           <div class ="interpacket">
             <label>Inter-packet Gap (IPG)</label>
-            <input type="text" />
+            <input type="text" 
+            value = {IPG}
+            onChange={(e) => setIPG(e.target.value)}/>
           </div>
           <div class ="interburst">
             <label>Inter-burst Gap (IBG)</label>
-            <input type="text" />
+            <input type="text" 
+            value = {mode === "Continuous" || mode === "Fixed" ? "0": IBG}
+            disabled = {mode === "Continuous" || mode === "Fixed"}
+            onChange={(e) => setIBG(e.target.value)}/>
           </div>
         </div>
       </form>

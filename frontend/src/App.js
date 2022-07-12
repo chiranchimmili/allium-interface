@@ -1,7 +1,8 @@
 import "./App.css";
-import Resizable from "./components/Resizable";
+import ResizableConsole from "./components/ResizableConsole";
 import Tabs from "./components/Tabs";
 import Header from "./components/Header"
+import ResizableNav from "./components/ResizableNav";
 
 function App() {
 
@@ -9,12 +10,12 @@ function App() {
     
       <div className="container">
         <Header></Header>
-        <div className="sidebar"></div>
+        <ResizableNav className ="navBar"></ResizableNav>
         <div className="main">
           <Tabs></Tabs>
         </div>
-        <Resizable >
-        </Resizable>
+        <ResizableConsole>
+        </ResizableConsole>
         </div>
   );
 }
