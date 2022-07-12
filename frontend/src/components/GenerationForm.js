@@ -5,9 +5,9 @@ import "./Form.css";
 import "./GenerationForm.css";
 
 const GenerationForm = () => {
-  const [packetCount, setPacketCount] = useState("10000");
-  const [burstLength, setBurstLength] = useState("120");
-  const [payload, setPayload] = useState("Random");
+  const [packetCount, setPacketCount] = useState("N/A");
+  const [burstLength, setBurstLength] = useState("N/A");
+  const [speed, setSpeed] = useState("1G");
   const [mode, setMode] = useState("Continuous");
   const [IPG, setIPG] = useState("0");
   const [IBG, setIBG] = useState("0");
@@ -29,7 +29,7 @@ const GenerationForm = () => {
         row.appendChild(title);
         row.appendChild(time);
         row.appendChild(desc);
-        row.style.color = "rgba(102,255,0,1)";
+        row.style.color = "#228b22";
         output_console.appendChild(row);
         output_console.scrollTop = output_console.scrollHeight;
       })
@@ -58,7 +58,7 @@ const GenerationForm = () => {
       mode: mode,
       count: packetCount,
       length: burstLength,
-      payload: payload,
+      speed: speed,
     };
     output_console.scrollTop = output_console.scrollHeight;
     sendData(generationForm);
@@ -106,12 +106,12 @@ const GenerationForm = () => {
           disabled = {mode === "Continuous" || mode === "Fixed"}
           onChange={(e) => setBurstLength(e.target.value)}
         ></input>
-        <label>Payload:</label>
-        <select value={payload} onChange={(e) => setPayload(e.target.value)}>
-          <option value="Random">Random</option>
-          <option value="0101">010101...</option>
-          <option value="1111">111111...</option>
-          <option value="0000">000000...</option>
+        <label>Transmission Speed:</label>
+        <select value={speed} onChange={(e) => setSpeed(e.target.value)}>
+          <option value="100M" disabled="disabled">100 MB/s</option>
+          <option value="1G" >1 GB/s</option>
+          <option value="10G" disabled="disabled">10 GB/s</option>
+          <option value="100G" disabled="disabled">100 GB/s</option>
         </select>
       </form>
       <form>
@@ -129,12 +129,12 @@ const GenerationForm = () => {
           onChange={(e) => setBurstLength(e.target.value)}
         ></input>
         <label>Payload:</label>
-        <select value={payload} onChange={(e) => setPayload(e.target.value)}>
+        {/* <select value={} onChange={(e) => setPayload(e.target.value)}>
           <option value="Random">Random</option>
           <option value="0101">010101...</option>
           <option value="1111">111111...</option>
           <option value="0000">000000...</option>
-        </select>
+        </select> */}
       </form>
       <form class="gaps">
         <div id="diagram">

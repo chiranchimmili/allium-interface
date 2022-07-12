@@ -1,6 +1,7 @@
 body {
   height: 100%;
   margin: 0;
+
 }
 .container {
   display: grid;
@@ -11,12 +12,14 @@ body {
   height: 100vh;
   padding: 16px;
   box-sizing: border-box;
-  background-color: white;
+  background-image: url("../src/data/billy-huynh-v9bnfMCyKbg-unsplash.jpg");
+  background-size: "cover";
+  height: 100vh;
+  background-repeat:no-repeat; 
 }
 
 .container > div {
   padding: 5px;
-  font-size: 32px;
   font-family: Helvetica;
   font-weight: bold;
   color: black;

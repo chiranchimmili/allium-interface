@@ -10,7 +10,7 @@ function App() {
     
       <div className="container">
         <Header></Header>
-        <ResizableNav className ="navBar"></ResizableNav>
+        <ResizableNav></ResizableNav>
         <div className="main">
           <Tabs></Tabs>
         </div>

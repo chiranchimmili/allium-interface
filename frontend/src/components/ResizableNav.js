@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import Nav from "./Nav.js";
 import "./ResizableNav.css";
 
 const ResizableNav = () => {
@@ -43,7 +44,7 @@ const ResizableNav = () => {
 
   return (
     <div ref={ref} className="resizeableNav">
-      <div className="nav"></div>
+      <Nav></Nav>
       <div ref={refRight} className="resizer resizer-r"></div>
     </div>
   );

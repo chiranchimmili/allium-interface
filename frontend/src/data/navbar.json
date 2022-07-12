@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Ethernet Traffic Tester",
+        "icon": "bi-gear-fill",
+        "childrens": [
+            {
+                "title": "Port-0",
+                "icon": "bi-phone-fill",
+                "childrens": [
+                    {
+                        "title": "Configuration",
+                        "icon": "bi-folder-symlink-fill"
+                    },
+                    {
+                        "title": "Results",
+                        "icon": "bi-clipboard-data-fill"
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -16,7 +16,7 @@
     padding: 10px 50px;
     background: white;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
 
     position: relative;
@@ -54,8 +54,6 @@
 }
 
 #save-button {
-    height: 40px;
-    width: 60px;
     grid-column: 3;
     grid-row: 3;
     place-self: end right;
@@ -146,14 +144,6 @@
   
   .inputs::-webkit-scrollbar-track {
     background: black;
-    border-radius: 25px;
-  }
-  
-  .console::-webkit-scrollbar-thumb {
-    border-radius: 100vh;
-    background: rgba(108, 0, 180, 1);
-  }
-  .console::-webkit-scrollbar-track-piece {
     border-radius: 25px;
   }
   

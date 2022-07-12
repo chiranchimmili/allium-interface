@@ -4,7 +4,8 @@ const Console = () => {
   return (
     <div id="console-flex">
       <div className="console">
-        <tr> <th colspan = "5">Welcome to ethernet traffic tester</th>
+        <tr> 
+          <th colspan = "5" className="welcome-message">Welcome to ethernet traffic tester</th>
         </tr>
       </div>
     </div>
