@@ -29,7 +29,7 @@ const GenerationForm = () => {
         row.appendChild(title);
         row.appendChild(time);
         row.appendChild(desc);
-        row.style.color = "#228b22";
+        row.style.color = "#0ac73a";
         output_console.appendChild(row);
         output_console.scrollTop = output_console.scrollHeight;
       })
@@ -51,7 +51,7 @@ const GenerationForm = () => {
     row.appendChild(title);
     row.appendChild(time);
     row.appendChild(desc);
-    row.style.color = "rgba(0,191,255,1)";
+    row.style.color = "#09aad3";
     output_console.appendChild(row);
     const generationForm = {
       type: type,
@@ -68,24 +68,24 @@ const GenerationForm = () => {
     <div className="inputs">
       <form id="mode">
         <header> Mode </header>
-        <section class="radio-section">
-          <div class="radio-list">
-            <div class="radio-item">
+        <section className="radio-section">
+          <div className="radio-list">
+            <div className="radio-item">
               <input type="radio" name="radio" id="radio1" value ="Continuous"  checked={ mode === "Continuous"} 
               onChange={(e) => setMode(e.currentTarget.value)}/>
-              <label for="radio1">Continuous</label>
+              <label id="radio1">Continuous</label>
             </div>
-            <div class="radio-item">
+            <div className="radio-item">
               <input type="radio" name="radio" id="radio2" value = "Fixed" onChange={(e) => setMode(e.currentTarget.value)}/>
-              <label for="radio2">Fixed</label>
+              <label id="radio2">Fixed</label>
             </div>
-            <div class="radio-item">
+            <div className="radio-item">
               <input type="radio" name="radio" id="radio3" value = "Fixed-Burst" onChange={(e) => setMode(e.currentTarget.value)}/>
-              <label for="radio3">Fixed-Burst</label>
+              <label id="radio3">Fixed-Burst</label>
             </div>
-            <div class="radio-item">
+            <div className="radio-item">
               <input type="radio" name="radio" id="radio4" value = "Continuous-Burst" onChange={(e) => setMode(e.currentTarget.value)}/>
-              <label for="radio4">Continuous-Burst</label>
+              <label id="radio4">Continuous-Burst</label>
             </div>
           </div>
         </section>
@@ -136,19 +136,19 @@ const GenerationForm = () => {
           <option value="0000">000000...</option>
         </select> */}
       </form>
-      <form class="gaps">
+      <form className="gaps">
         <div id="diagram">
           <span>PKT1</span> <span>IPG</span> <span>PKT2</span>{" "}
           <span>IBG</span> <span>PKT1</span> <span> IPG</span> <span>PKT2</span>
         </div>
-        <div class="gaps-inputs">
-          <div class ="interpacket">
+        <div className="gaps-inputs">
+          <div className ="interpacket">
             <label>Inter-packet Gap (IPG)</label>
             <input type="text" 
             value = {IPG}
             onChange={(e) => setIPG(e.target.value)}/>
           </div>
-          <div class ="interburst">
+          <div className ="interburst">
             <label>Inter-burst Gap (IBG)</label>
             <input type="text" 
             value = {mode === "Continuous" || mode === "Fixed" ? "0": IBG}

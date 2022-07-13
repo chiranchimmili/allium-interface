@@ -1,13 +1,21 @@
+
 .sidebar-item {
     padding: .75em 1em;
     display: block;
     transition: background-color .15s;
-    border-radius: 5px;
     text-align: left;
 }
 
-.sidebar-item:hover {
+.sidebar-item:not(:hover) {
     background-color: rgba(255, 255, 255, .1);
+}
+
+.sidebar-item:hover .Active {
+    background-color: rgba(82, 78, 238, 0.5);
+}
+
+.sidebar-item:not(:hover) .Active {
+    background-color: rgba(82, 78, 238, 0.5);
 }
 
 .sidebar-title {
@@ -63,4 +71,8 @@
 
 .sidebar-item.plain i {
     display: inline-block;
+}
+
+.Active {
+    background-color: rgba(82, 78, 238, 0.5);
 }

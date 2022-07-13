@@ -3,16 +3,20 @@ import "./Tabs.css";
 import "./GenerationForm.js"
 import GenerationForm from "./GenerationForm.js";
 import VerificationForm from "./VerificationForm";
+import TabContext from "../TabContext";
+import { useContext } from "react";
 
 const Tabs = () =>  {
   const [toggleState, setToggleState] = useState(1);
+
+  const { page } = useContext(TabContext);
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
   return (
-      <div className="tabs-container">
+      <div className={page}>
         <div className="bloc-tabs">
           <button
             className={toggleState === 1 ? "tabs active-tabs" : "tabs"}

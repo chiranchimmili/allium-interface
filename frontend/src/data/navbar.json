@@ -9,11 +9,13 @@
                 "childrens": [
                     {
                         "title": "Configuration",
-                        "icon": "bi-folder-symlink-fill"
+                        "icon": "bi-folder-symlink-fill",
+                        "id": "Configuration"
                     },
                     {
                         "title": "Results",
-                        "icon": "bi-clipboard-data-fill"
+                        "icon": "bi-clipboard-data-fill",
+                        "id": "Results"
                     }
                 ]
             }

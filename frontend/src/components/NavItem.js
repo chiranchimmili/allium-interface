@@ -1,10 +1,32 @@
 import { useState } from "react"
+import { useContext } from "react"
+import TabContext from "../TabContext"
 
-export default function NavItem({item}) {
+const NavItem = ({item}) => {
     const [open, setOpen] = useState(false)
 
-    
-    if(item.childrens){
+    const {setPage} = useContext(TabContext);
+
+    const handleClick = (id) => {
+        let config = document.querySelector("#Configuration");
+        let results = document.querySelector("#Results");
+        console.log(id)
+        if (id == "Results") {
+            if (!(results.classList.contains("Active"))) {
+                results.classList.add("Active")
+                setPage("results-container")
+                config.classList.remove("Active")
+            }
+        } else {
+            if (!(config.classList.contains("Active"))) {
+                config.classList.add("Active")
+                setPage("configuration-container")
+                results.classList.remove("Active")
+            }
+        }
+    }
+
+    if (item.childrens){
         return (
             <div className={open ? "sidebar-item open" : "sidebar-item"}>
                 <div className="sidebar-title">
@@ -19,12 +41,13 @@ export default function NavItem({item}) {
                 </div>
             </div>
         )
-    }else{
+    } else{
         return (
-            <a className="sidebar-item plain">
+            <button className={"sidebar-item plain"} id={item.id} onClick = {() => handleClick(item.id)}>
                 { item.icon && <i className={item.icon}></i> }
                 {item.title}
-            </a>
+            </button>
         )
     }
 }
+export default NavItem;
