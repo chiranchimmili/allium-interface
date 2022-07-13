@@ -5,8 +5,8 @@ import "./Form.css";
 import "./GenerationForm.css";
 
 const GenerationForm = () => {
-  const [packetCount, setPacketCount] = useState("N/A");
-  const [burstLength, setBurstLength] = useState("N/A");
+  const [packetCount, setPacketCount] = useState("");
+  const [burstLength, setBurstLength] = useState("");
   const [speed, setSpeed] = useState("1G");
   const [mode, setMode] = useState("Continuous");
   const [IPG, setIPG] = useState("0");
@@ -59,6 +59,8 @@ const GenerationForm = () => {
       count: packetCount,
       length: burstLength,
       speed: speed,
+      ipg: IPG,
+      ibg: IBG
     };
     output_console.scrollTop = output_console.scrollHeight;
     sendData(generationForm);
@@ -73,19 +75,19 @@ const GenerationForm = () => {
             <div className="radio-item">
               <input type="radio" name="radio" id="radio1" value ="Continuous"  checked={ mode === "Continuous"} 
               onChange={(e) => setMode(e.currentTarget.value)}/>
-              <label id="radio1">Continuous</label>
+              <label htmlFor="radio1" id="radio1">Continuous</label>
             </div>
             <div className="radio-item">
               <input type="radio" name="radio" id="radio2" value = "Fixed" onChange={(e) => setMode(e.currentTarget.value)}/>
-              <label id="radio2">Fixed</label>
+              <label htmlFor="radio2" id="radio2">Fixed</label>
             </div>
             <div className="radio-item">
               <input type="radio" name="radio" id="radio3" value = "Fixed-Burst" onChange={(e) => setMode(e.currentTarget.value)}/>
-              <label id="radio3">Fixed-Burst</label>
+              <label htmlFor="radio3" id="radio3">Fixed-Burst</label>
             </div>
             <div className="radio-item">
               <input type="radio" name="radio" id="radio4" value = "Continuous-Burst" onChange={(e) => setMode(e.currentTarget.value)}/>
-              <label id="radio4">Continuous-Burst</label>
+              <label htmlFor="radio4" id="radio4">Continuous-Burst</label>
             </div>
           </div>
         </section>
@@ -115,20 +117,20 @@ const GenerationForm = () => {
         </select>
       </form>
       <form>
-        <label>Packet Count:</label>
+        <label>Placeholder:</label>
         <input
-          type="text"
-          required
-          value={packetCount}
-          onChange={(e) => setPacketCount(e.target.value)}
+          // type="text"
+          // required
+          // value={packetCount}
+          // onChange={(e) => setPacketCount(e.target.value)}
         />
-        <label>Packet Length:</label>
+        <label>Placeholder:</label>
         <input
-          required
-          value={burstLength}
-          onChange={(e) => setBurstLength(e.target.value)}
+          // required
+          // value={burstLength}
+          // onChange={(e) => setBurstLength(e.target.value)}
         ></input>
-        <label>Payload:</label>
+        <label>Placeholder:</label>
         {/* <select value={} onChange={(e) => setPayload(e.target.value)}>
           <option value="Random">Random</option>
           <option value="0101">010101...</option>

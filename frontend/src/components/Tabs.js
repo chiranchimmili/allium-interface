@@ -28,7 +28,7 @@ const Tabs = () =>  {
             className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
             onClick={() => toggleTab(2)}
           >
-            Validation
+            Verification
           </button>
         </div>
 

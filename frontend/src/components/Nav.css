@@ -11,11 +11,11 @@
 }
 
 .sidebar-item:hover .Active {
-    background-color: rgba(82, 78, 238, 0.5);
+    background-color: rgba(82, 78, 238, 0.3);
 }
 
 .sidebar-item:not(:hover) .Active {
-    background-color: rgba(82, 78, 238, 0.5);
+    background-color: rgba(82, 78, 238, 0.3);
 }
 
 .sidebar-title {
@@ -62,7 +62,7 @@
 }
 
 .sidebar-item.plain:nth-child(1) {
-    padding-top: 12px;
+    padding-top: 10px;
 }
 
 .sidebar-item.plain:hover {
@@ -74,5 +74,5 @@
 }
 
 .Active {
-    background-color: rgba(82, 78, 238, 0.5);
+    background: rgba(82, 78, 238, 0.3);
 }

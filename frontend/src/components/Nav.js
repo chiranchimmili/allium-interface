@@ -6,15 +6,9 @@ import "./Nav.css"
 
 const Nav = () => {
 
-  const [page, setPage] = useState(0);
-
-  const changePage = (event, val) => {
-    setPage(val)
-  }
-
     return (
         <div className="navbar-container">
-          { items.map((item, index) => <NavItem key={index} item={item} changePage = {changePage}/>) }
+          { items.map((item, index) => <NavItem key={index} item={item} />) }
         </div>
     )
 }
