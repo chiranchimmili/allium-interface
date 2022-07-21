@@ -55,20 +55,84 @@
 
 #save-button {
     grid-column: 3;
-    grid-row: 3;
+    grid-row: 6;
     place-self: end right;
 }
 
-#mode header {
+#form-1 header {
     text-align: left;
-    font-size: 20px;
+    font-size: 18px;
     padding-left: 10px;
     padding-bottom: 5px;
+    font-weight: normal;
+}
+
+#mode {
+    width: 100%;
+    height: 100%;
+}
+
+.stream-properties {
+    grid-column: 1 / 4;
+}
+
+.header-properties {
+    grid-column: 1 / 4;
+    grid-row: 4;
+    padding-top: 20px;
+}
+
+#form-2 {
+    padding: 8px;
+}
+
+#form-4 {
+    grid-column: 1;
+}
+
+#form-4 header {
+    text-align: left;
+    font-size: 18px;
+    padding-left: 0px;
+    padding-bottom: 5px;
+}
+
+#form-5 {
+    grid-column: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 300px;
+    justify-content: space-evenly;
+    column-gap: 10px;
+}
+#form-5 > div{
+    max-width: 270px;
+}
+
+#form-5 header {
+    text-align: left;
+    font-size: 18px;
+    padding-left: 0px;
+    padding-bottom: 5px;
+}
+
+.group >input[type="checkbox"] {
+    background-color: #524eee;
+}
+
+#blank {
+    color: white;
+    visibility: hidden;
 }
 
 .gaps {
     grid-column: 1 / 4;
     min-height: 100px;
+}
+
+#gaps-form {
+    padding-bottom: 0px;
 }
 
 .gaps-inputs {
@@ -136,14 +200,30 @@
     min-width: 80px;
 }
 
+.group {
+    display: flex;
+    justify-content: left;
+    padding-bottom: 5px;
+    gap: 10px
+}
 
-.inputs::-webkit-scrollbar {
-    width: 20px;
-    border-radius: 25px;
-  }
-  
-  .inputs::-webkit-scrollbar-track {
-    background: black;
-    border-radius: 25px;
-  }
+.group > label {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+#ipv4-enable {
+    width: auto;
+    margin: 0;
+}
+
+#mac-enable {
+    width: auto;
+    margin: 0;
+}
+
+#udp-enable {
+    width: auto;
+    margin: 0;
+}
   
