@@ -5,17 +5,32 @@ import "./Form.css";
 import "./GenerationForm.css";
 
 const GenerationForm = () => {
+  const [testType, setType] = useState("Generation");
   const [packetCount, setPacketCount] = useState("");
   const [burstLength, setBurstLength] = useState("");
   const [speed, setSpeed] = useState("1G");
   const [mode, setMode] = useState("Continuous");
   const [IPG, setIPG] = useState("0");
   const [IBG, setIBG] = useState("0");
-  const [ipv4, ipv4En] = useState(false);
-  const [mac, macEn] = useState(false);
-  const [udp, udpEn] = useState(false);
 
-  const type = 0;
+  const [udp, udpEn] = useState(false);
+  const [payload, setPayload] = useState("None")
+
+
+  const [mac, macEn] = useState(false);
+  const [macDa, setMacDa] = useState("")
+  const [macDaEn, setMacDaEn] = useState(false)
+  const [macSa, setMacSa] = useState("")
+  const [macSaEn, setMacSaEn] = useState(false)
+  const [vlan, setVlan] = useState("0x8100")
+  const [vlanEn, setVlanEn] = useState(false)
+  const [ethType, setEthType] = useState("0x0800")
+  const [ethTypeEn, setEthTypeEn] = useState(false)
+
+  const [ipv4, ipv4En] = useState(false);
+  const [version, setVersion] = useState("")
+  const [versionEn, setVersionEn] = useState(false)
+
 
   const sendData = (form) => {
     let output_console = document.querySelector(".console");
@@ -57,7 +72,7 @@ const GenerationForm = () => {
     row.style.color = "#09aad3";
     output_console.appendChild(row);
     const generationForm = {
-      type: type,
+      type: testType,
       mode: mode,
       count: packetCount,
       length: burstLength,
@@ -72,7 +87,7 @@ const GenerationForm = () => {
   return (
     <div className="inputs">
       <header className="stream-properties"> Stream Properties </header>
-      <form id="form-1">
+      <form id="gen-form-1">
         <header> Mode: </header>
         <section className="radio-section">
           <div className="radio-list">
@@ -128,7 +143,7 @@ const GenerationForm = () => {
           </div>
         </section>
       </form>
-      <form id="form-2">
+      <form id="gen-form-2">
         <label>Number of Packets:</label>
         <input
           type="text"
@@ -166,31 +181,42 @@ const GenerationForm = () => {
           </option>
         </select>
       </form>
-      <form id="form-3">
-        <label>Placeholder:</label>
-        <input
-        // type="text"
-        // required
-        // value={packetCount}
-        // onChange={(e) => setPacketCount(e.target.value)}
-        />
-        <label>Placeholder:</label>
-        <input
-        // required
-        // value={burstLength}
-        // onChange={(e) => setBurstLength(e.target.value)}
-        ></input>
-        <label>Placeholder:</label>
-        {/* <select value={} onChange={(e) => setPayload(e.target.value)}>
-          <option value="Random">Random</option>
-          <option value="0101">010101...</option>
-          <option value="1111">111111...</option>
-          <option value="0000">000000...</option>
-        </select> */}
+      <form id="gen-form-3">
+        <header> Test Type: </header>
+        <section className="radio-sectiont">
+          <div className="radio-listt">
+            <div className="radio-itemt">
+              <input
+                type="radio"
+                name="radiot"
+                id="radio1t"
+                value="Generation"
+                checked={testType === "Generation"}
+                onChange={(e) => setType(e.currentTarget.value)}
+              />
+              <label htmlFor="radio1t" id="radio1t">
+                Generation
+              </label>
+            </div>
+            <div className="radio-itemt">
+              <input
+                type="radio"
+                name="radiot"
+                id="radio2t"
+                value="Verification"
+                checked={testType === "Verification"}
+                onChange={(e) => setType(e.currentTarget.value)}
+              />
+              <label htmlFor="radio2t" id="radio2t">
+                Verification
+              </label>
+            </div>
+          </div>
+        </section>
       </form>
       <form className="gaps" id="gaps-form">
         <div id="diagram">
-          <span>PKT1</span> <span>IPG</span> <span>PKT2</span> <span>IBG</span>{" "}
+          <span>PKT1</span> <span>IPG</span> <span>PKT2</span> <span>IBG</span>
           <span>PKT1</span> <span> IPG</span> <span>PKT2</span>
         </div>
         <div className="gaps-inputs">
@@ -217,7 +243,7 @@ const GenerationForm = () => {
         Save
       </button>
       <header className="header-properties">Packet Properties</header>
-      <form id="form-4">
+      <form id="gen-form-4">
         <div class="group">
           <label for="mac-enable">MAC</label>
           <input
@@ -226,27 +252,45 @@ const GenerationForm = () => {
             onChange={(e) => macEn(e.target.checked)}
           />
         </div>
-        <label>Destination Address:</label>
+        <div class="inner-group">
+          <label for="mac-da">Destination Address</label>
+          <input type="checkbox" id="mac-da" disabled={mac === false} onChange = {(e) => setMacDaEn(e.currentTarget.checked)}
+          checked = {mac === false ? false : macDaEn}/>
+        </div>
         <input
           type="text"
           // required
-          // value={packetCount}
-          disabled={mac === false}
-          // onChange={(e) => setPacketCount(e.target.value)}
+          value = {macDaEn === false || mac === false ? "N/A" : macDa}  disabled={mac === false || macDaEn == false}
+          onChange={(e) => setMacDa(e.target.value)}
         />
-        <label>Source Address:</label>
+        <div class="inner-group">
+          <label for="mac-sa">Source Address</label>
+          <input type="checkbox" id="mac-sa" disabled={mac === false} onChange = {(e) => setMacSaEn(e.currentTarget.checked)}
+          checked = {mac === false ? false : macSaEn}/>       
+           </div>
         <input
           // required
           // value={burstLength}
-          disabled={mac === false}
-          // onChange={(e) => setBurstLength(e.target.value)}
+          value = {macSaEn === false || mac === false ? "N/A" : macSa}  disabled={mac === false || macSaEn == false}
+          onChange={(e) => setMacSa(e.target.value)}
         ></input>
-        <label>VLAN Tag:</label>
-        <input disabled={mac === false}></input>
-        <label>EtherType</label>
-        <input disabled={mac === false}></input>
-      </form>
-      <form id="form-5">
+        <div class="inner-group">
+          <label for="vlan">VLAN-Tag</label>
+          <input type="checkbox" id="vlan" disabled={mac === false} onChange = {(e) => setVlanEn(e.currentTarget.checked)}
+          checked = {mac === false ? false : vlanEn}/>
+        </div>
+        <input disabled={vlanEn === false || mac === false} value = {vlanEn === false || mac === false ? "N/A" : vlan}
+        onChange = {(e) => setVlan(e.currentTarget.value)}></input>
+
+        <div class="inner-group">
+          <label for="ethertype">Ethertype</label>
+          <input type="checkbox" id="ethertype" disabled={mac === false} onChange = {(e) => setEthTypeEn(e.currentTarget.checked)}
+          checked = {mac === false ? false : ethTypeEn}/> 
+           </div>
+           <input disabled={ethTypeEn === false || mac === false} value = {ethTypeEn === false || mac === false ? "N/A" : ethType}
+        onChange = {(e) => setEthType(e.currentTarget.value)}></input>
+        </form>
+      <form id="gen-form-5">
         <div class="group">
           <label for="ipv4-enable">IPv4</label>
           <input
@@ -256,17 +300,18 @@ const GenerationForm = () => {
           />
         </div>
         <div>
-          <label>Version & IHL:</label>
-          <input
-            // type="text"
-            // required
-            // value={packetCount}
-            // onChange={(e) => setPacketCount(e.target.value)}
-            disabled={ipv4 === false}
-          />
+          <div class="inner-group">
+            <label for="version">Version & IHL</label>
+            <input type="checkbox" id="version" disabled={ipv4 === false} onChange = {(e) => setVersionEn(e.currentTarget.checked)}
+          checked = {ipv4 === false ? false : versionEn}/>           </div>
+          <input disabled={versionEn === false || ipv4 === false} value = {versionEn === false || ipv4 === false ? "N/A" : version}
+        onChange = {(e) => setVersion(e.currentTarget.value)}></input>
         </div>
         <div>
-          <label>DSCP & ECN:</label>
+          <div class="inner-group">
+            <label for="dscp">DSCP & ECN</label>
+            <input type="checkbox" id="dscp" disabled={ipv4 === false} />
+          </div>
           <input
             disabled={ipv4 === false}
 
@@ -276,11 +321,37 @@ const GenerationForm = () => {
           ></input>
         </div>
         <div>
-          <label>Identification</label>
+          <div class="inner-group">
+            <label for="identification">Identification</label>
+            <input
+              type="checkbox"
+              id="identification"
+              disabled={ipv4 === false}
+            />
+          </div>
           <input disabled={ipv4 === false} />
         </div>
         <div>
-          <label>Flags & Fragment Offset:</label>
+          <div class="inner-group">
+            <label for="flags">Flags & Fragment Offset</label>
+            <input type="checkbox" id="flags" disabled={ipv4 === false} />
+          </div>
+          <input
+            disabled={ipv4 === false}
+
+            // required
+            // value={burstLength}
+            // onChange={(e) => setBurstLength(e.target.value)}
+          ></input>
+        </div>
+        {/* <div>
+          <header id="blank">Blank</header>
+        </div> */}
+        <div>
+          <div class="inner-group">
+            <label for="timetolive">Time to Live</label>
+            <input type="checkbox" id="timetolive" disabled={ipv4 === false} />
+          </div>
           <input
             disabled={ipv4 === false}
 
@@ -293,7 +364,10 @@ const GenerationForm = () => {
           <header id="blank">Blank</header>
         </div>
         <div>
-          <label>Time to Live:</label>
+          <div class="inner-group">
+            <label for="protocol">Protocol</label>
+            <input type="checkbox" id="protocol" disabled={ipv4 === false} />
+          </div>
           <input
             disabled={ipv4 === false}
 
@@ -303,7 +377,10 @@ const GenerationForm = () => {
           ></input>
         </div>
         <div>
-          <label>Protocol:</label>
+          <div class="inner-group">
+            <label for="sa">Source Address</label>
+            <input type="checkbox" id="sa" disabled={ipv4 === false} />
+          </div>
           <input
             disabled={ipv4 === false}
 
@@ -313,27 +390,33 @@ const GenerationForm = () => {
           ></input>
         </div>
         <div>
-          <label>Source Address:</label>
+          <div class="inner-group">
+            <label for="da">Destination Address</label>
+            <input type="checkbox" id="da" disabled={ipv4 === false} />
+          </div>
           <input
             disabled={ipv4 === false}
-
             // required
             // value={burstLength}
             // onChange={(e) => setBurstLength(e.target.value)}
           ></input>
         </div>
         <div>
-          <label>Destination Address:</label>
-          <input
-            disabled={ipv4 === false}
-
-            // required
-            // value={burstLength}
-            // onChange={(e) => setBurstLength(e.target.value)}
-          ></input>
+          <div class="inner-group">
+            <label for="checksum">Checksum</label>
+            <input type="checkbox" id="checksum" disabled={ipv4 === false} />
+          </div>
+          <input disabled={true} value={"Auto-calculated"}></input>
+        </div>
+        <div>
+          <div class="inner-group">
+            <label for="ip-length">Length</label>
+            <input type="checkbox" id="ip-length" disabled={ipv4 === false} />
+          </div>
+          <input disabled={true} value={"Auto-calculated"}></input>
         </div>
       </form>
-      <form id="form-6">
+      <form id="gen-form-6">
         <div class="group">
           <label for="udp-enable">UDP</label>
           <input
@@ -342,7 +425,10 @@ const GenerationForm = () => {
             onChange={(e) => udpEn(e.target.checked)}
           />
         </div>
-        <label>Destination Address:</label>
+        <div class="inner-group">
+          <label for="udp-da">Destination Address</label>
+          <input type="checkbox" id="udp-da" disabled={udp === false} />
+        </div>
         <input
           type="text"
           // required
@@ -350,14 +436,58 @@ const GenerationForm = () => {
           disabled={udp === false}
           // onChange={(e) => setPacketCount(e.target.value)}
         />
-        <label>Source Address:</label>
+        <div class="inner-group">
+          <label for="udp-sa">Source Address</label>
+          <input type="checkbox" id="udp-sa" disabled={udp === false} />
+        </div>
         <input
-        type = "test"
+          type="test"
           // required
           // value={burstLength}
           disabled={udp === false}
           // onChange={(e) => setBurstLength(e.target.value)}
         ></input>
+        <div>
+          <div class="inner-group">
+            <label for="udp-length">Length</label>
+            <input type="checkbox" id="udp-length" disabled={udp === false} />
+          </div>
+          <input disabled={true} value={"Auto-calculated"}></input>
+        </div>
+        <div>
+          <div class="inner-group">
+            <label for="udp-checksum">Checksum</label>
+            <input type="checkbox" id="udp-checksum" disabled={udp === false} />
+          </div>
+          <input disabled={true} value={"Auto-calculated"}></input>
+        </div>
+      </form>
+      <form id="gen-form-7">
+      <header>
+          Other
+        </header>
+      <div className="BERT">
+          <div class="inner-group">
+            <label for="bert">BERT</label>
+            <input type="checkbox" id="bert" />
+          </div>
+          </div>
+        <div>
+        <label>Payload:</label>
+        <select value={payload} onChange={(e) => setPayload(e.target.value)}>
+          <option value="None">
+            None
+          </option>
+          <option value="Increment">Increment Byte</option>
+          <option value="Decrement">
+            Decrement Byte
+          </option>
+          <option value="Random">
+            Random
+          </option>
+        
+        </select>
+        </div>
       </form>
     </div>
   );

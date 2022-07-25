@@ -4,6 +4,7 @@
     display: block;
     transition: background-color .15s;
     text-align: left;
+    flex-shrink: 1;
 }
 
 .sidebar-item:not(:hover) {

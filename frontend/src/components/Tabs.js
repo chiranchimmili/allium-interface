@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./Tabs.css";
 import "./GenerationForm.js"
 import GenerationForm from "./GenerationForm.js";
-import VerificationForm from "./VerificationForm";
 import TabContext from "../TabContext";
 import { useContext } from "react";
 
@@ -46,7 +45,6 @@ const Tabs = () =>  {
               toggleState === 2 ? "content  active-content" : "content"
             }
           >
-            <VerificationForm></VerificationForm>
             <div></div>
           </div>
         </div>

@@ -14,7 +14,7 @@
 }
 
 .bloc-tabs {
-  display: flex;
+  display: none;
   width: 600px;
   padding-left: 20px;
 }
