@@ -5,7 +5,6 @@ import "./Nav.css"
 
 
 const Nav = () => {
-
     return (
         <div className="navbar-container">
           { items.map((item, index) => <NavItem key={index} item={item} />) }

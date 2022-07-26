@@ -10,14 +10,31 @@
                     {
                         "title": "Configuration",
                         "icon": "bi-folder-symlink-fill",
-                        "id": "Configuration"
+                        "id": "Configuration0"
                     },
                     {
                         "title": "Results",
                         "icon": "bi-clipboard-data-fill",
-                        "id": "Results"
+                        "id": "Results0"
                     }
                 ]
+            },
+            {
+                "title": "Port-1",
+                "icon": "bi-phone-fill",
+                "childrens": [
+                    {
+                        "title": "Configuration",
+                        "icon": "bi-folder-symlink-fill",
+                        "id": "Configuration1"
+                    },
+                    {
+                        "title": "Results",
+                        "icon": "bi-clipboard-data-fill",
+                        "id": "Results1"
+                    }
+                ]
+                
             }
         ]
     }

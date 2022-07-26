@@ -8,9 +8,12 @@
 
 #start-button {
     background-color: transparent;
+    cursor: pointer;
     
 }
 
 #end-button {
     background-color: transparent;
+    cursor: pointer;
+
 }

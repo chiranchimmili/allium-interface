@@ -67,5 +67,24 @@
   .-container::-webkit-scrollbar-track-piece {
     border-radius: 25px;
   }
+
+  
+  .configuration1-container::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 25px;
+  }
+  
+  .configuration1-container::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 25px;
+  }
+  
+  .configuration1-container::-webkit-scrollbar-thumb {
+    border-radius: 100vh;
+    background: #524eee;
+  }
+  .-container::-webkit-scrollbar-track-piece {
+    border-radius: 25px;
+  }
   
   

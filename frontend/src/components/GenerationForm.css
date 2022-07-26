@@ -1,16 +1,16 @@
-.radio-section{
+.configuration-container .radio-section{
     display: flex;
     align-items: center;
     justify-content: left;
 }
-.radio-item [type="radio"]{
+.configuration-container .radio-item [type="radio"]{
     display: none;
 }
 
-.radio-item + .radio-item{
+.configuration-container .radio-item + .radio-item{
     margin-top: 5px;
 }
-.radio-item label{
+.configuration-container .radio-item label{
     display: block;
     padding: 10px 50px;
     background: white;
@@ -19,21 +19,21 @@
     font-weight: 400;
     position: relative;
 }
-.radio-item label:after,
-.radio-item label:before{
+.configuration-container .radio-item label:after,
+.configuration-container .radio-item label:before{
     content: "";
     position: absolute;
     border-radius: 50%;
 }
 
-.radio-item label:after{
+.configuration-container .radio-item label:after{
     height: 20px;
     width: 20px;
     border:2px solid #524eee;
     left: 10px;
     top: calc(50% - 12px);
 }
-.radio-item label:before{
+.configuration-container .radio-item label:before{
     background: #524eee;
     height: 10px;
     width: 10px;
@@ -45,12 +45,11 @@
     visibility: hidden;
 }
 
-.radio-item [type="radio"]:checked ~ label:before{
+.configuration-container .radio-item [type="radio"]:checked ~ label:before{
     opacity: 1;
     visibility: visible;
     transform: scale(1.5);
 }
-
 
 .radio-sectiont{
     display: flex;
@@ -100,6 +99,69 @@
 }
 
 .radio-itemt [type="radio"]:checked ~ label:before{
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.5);
+}
+
+.configuration1-container .radio-section{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+}
+.configuration1-container .radio-item [type="radio"]{
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.configuration1-container .radio-item {
+   display: flex;
+   justify-content: left;
+   align-items: center;
+   margin-top: 5px;
+}
+.configuration1-container .radio-item label{
+    display: flex;
+    padding: 10px 50px;
+    justify-content: center;
+    background: white;
+    cursor: pointer;
+    pointer-events: none;
+    font-size: 14px;
+    font-weight: 400;
+    position: relative;
+}
+.configuration1-container .radio-item label:after,
+.configuration1-container .radio-item label:before{
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+}
+
+.configuration1-container .radio-item label:after{
+    height: 20px;
+    width: 20px;
+    border:2px solid #524eee;
+    left: 10px;
+    top: calc(50% - 12px);
+}
+.configuration1-container .radio-item label:before{
+    background: #524eee;
+    height: 10px;
+    width: 10px;
+    left: 17px;
+    top: calc(50% - 5px);
+    transform: scale(1);
+    transition: .3s ease-in-out 0s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.configuration1-container .radio-item [type="radio"]:checked ~ label:before{
     opacity: 1;
     visibility: visible;
     transform: scale(1.5);
@@ -397,11 +459,31 @@
 
 .BERT {
     height: 68px;
+    display: flex;
+    align-items: center;
 }
 
+.inner-group-bert {
+    display: flex;
+    gap: 6px;
+
+}
 #gen-form-7 header {
     text-align: left;
     font-size: 18px;
     padding-left: 0px;
     padding-bottom: 5px;
+}
+
+.ms {
+    font-weight: 200;
+    font-size: 14px
+}
+
+.ipbg {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3px
 }

@@ -4,7 +4,20 @@
 .results-container * {
   display: none;
 }
+
+.results1-container * {
+  display: none;
+}
 .configuration-container {
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+  flex-direction: column;
+  overflow: auto;
+  width: 100%;
+}
+
+.configuration1-container {
   display: flex;
   min-height: 0;
   min-width: 0;
