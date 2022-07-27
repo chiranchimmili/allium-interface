@@ -4,7 +4,7 @@ import "./Console.js";
 import "./Form.css";
 import "./GenerationForm.css";
 
-const GenerationForm = (props) => {
+const VerificationForm = (props) => {
 
   const port = props.keyProp;
   const testType = 0;
@@ -14,7 +14,6 @@ const GenerationForm = (props) => {
   const [mode, setMode] = useState("Continuous");
   const [IPG, setIPG] = useState("0");
   const [IBG, setIBG] = useState("0");
-  const [ISG, setISG] = useState("0");
 
   const [mac, macEn] = useState(true);
   const [macDa, setMacDa] = useState("")
@@ -146,7 +145,7 @@ const GenerationForm = (props) => {
     <div className="inputs">
       <header className="stream-properties"> Stream Properties </header>
       <form id="gen-form-1">
-        <header> Mode: </header>
+        {/* <header> Mode: </header>
         <section className="radio-section">
           <div className="radio-list">
             <div className="radio-item">
@@ -199,7 +198,7 @@ const GenerationForm = (props) => {
               </label>
             </div>
           </div>
-        </section>
+        </section> */}
       </form>
       <form id="gen-form-2">
         <label>Number of Packets:</label>
@@ -274,21 +273,10 @@ const GenerationForm = (props) => {
       </form>
       <form className="gaps" id="gaps-form">
         <div id="diagram">
-          <span>ISG</span> <span>PKT1</span> <span>IPG</span> <span>PKT2</span> <span>IBG</span>
+          <span>PKT1</span> <span>IPG</span> <span>PKT2</span> <span>IBG</span>
           <span>PKT1</span> <span> IPG</span> <span>PKT2</span>
         </div>
         <div className="gaps-inputs">
-        <div className="interstart">
-            <label>Inter-start Gap (ISG)</label>
-            <div className = "ipbg">
-            <input
-              type="text"
-              value={ISG}
-              onChange={(e) => setISG(e.target.value)}
-            />
-            <span className = "ms">ms</span>
-            </div>
-          </div>
           <div className="interpacket">
             <label>Inter-packet Gap (IPG)</label>
             <div className = "ipbg">
@@ -546,7 +534,7 @@ const GenerationForm = (props) => {
             checked =  {udp === false ? false : udpDaEn}/> */}
         </div>
         <input disabled={payload === "None"} value = {payload === "None" ? "N/A" : payloadLength}
-        placeholder = "0 - 1024 Bytes" type = "number"
+        placeholder = "0 - 1024 Bytes"
         onChange = {(e) => updateLengths(e)}></input>
         <div style={{
           visibility: payload === "Fixed" ? "visible" : "hidden",
@@ -567,4 +555,4 @@ const GenerationForm = (props) => {
   );
 };
 
-export default GenerationForm;
+export default VerificationForm;
