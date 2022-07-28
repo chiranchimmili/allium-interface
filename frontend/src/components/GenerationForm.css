@@ -506,3 +506,21 @@
     align-items: center;
     gap: 3px
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
+.gen-form-3-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Nunito", sans-serif;
+}
+
+.gen-form-3-content .openModalBtn {
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  background-color: #524eee;
+  color: white;
+  cursor: pointer;
+}

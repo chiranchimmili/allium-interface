@@ -1,11 +1,11 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import axios from "axios";
 import "./Console.js";
 import "./Form.css";
 import "./GenerationForm.css";
+import ModalContext from "../ModalContext.js";
 
 const GenerationForm = (props) => {
-
   const port = props.keyProp;
   const testType = 0;
   const [packetCount, setPacketCount] = useState("");
@@ -17,77 +17,95 @@ const GenerationForm = (props) => {
   const [ISG, setISG] = useState("0");
 
   const [mac, macEn] = useState(true);
-  const [macDa, setMacDa] = useState("")
-  const [macSa, setMacSa] = useState("")
-  const [vlan, setVlan] = useState("0x8100")
-  const [vlanEn, setVlanEn] = useState(false)
-  const [ethType, setEthType] = useState("0x0800")
+  const [macDa, setMacDa] = useState("");
+  const [macSa, setMacSa] = useState("");
+  const [vlan, setVlan] = useState("0x8100");
+  const [vlanEn, setVlanEn] = useState(false);
+  const [ethType, setEthType] = useState("0x0800");
 
   const [ipv4, ipv4En] = useState(false);
-  const [version, setVersion] = useState("0x45")
-  const [dscp, setDscp] = useState("0x00")
-  const [identification, setIdentification] = useState("0x0000")
-  const [flags, setFlags] = useState("0x4000")
-  const [timetolive, setTimetolive] = useState("0x80")
-  const [protocol, setProtocol] = useState("0x11")
-  const [ipv4Da, setIpv4Da] = useState("")
-  const [ipv4Sa, setIpv4Sa] = useState("")
-  const [ipv4Length, setIpv4Length] = useState(0)
+  const [version, setVersion] = useState("0x45");
+  const [dscp, setDscp] = useState("0x00");
+  const [identification, setIdentification] = useState("0x0000");
+  const [flags, setFlags] = useState("0x4000");
+  const [timetolive, setTimetolive] = useState("0x80");
+  const [protocol, setProtocol] = useState("0x11");
+  const [ipv4Da, setIpv4Da] = useState("");
+  const [ipv4Sa, setIpv4Sa] = useState("");
+  const [ipv4Length, setIpv4Length] = useState(0);
 
   const [udp, udpEn] = useState(false);
-  const [udpDa, setUdpDa] = useState("")
-  const [udpSa, setUdpSa] = useState("")
-  const [udpLength, setUdpLength] = useState(0)
+  const [udpDa, setUdpDa] = useState("");
+  const [udpSa, setUdpSa] = useState("");
+  const [udpLength, setUdpLength] = useState(0);
 
-  const [payload, setPayload] = useState("None")
-  const [payloadLength, setPayloadLength] = useState("")
-  const [payloadPattern, setPayloadPattern] = useState("")
+  const [payload, setPayload] = useState("None");
+  const [payloadLength, setPayloadLength] = useState("");
+  const [payloadPattern, setPayloadPattern] = useState("");
 
   const oldPayloadLength = useRef(0);
 
+  const { setModalOpen } = useContext(ModalContext);
+  const { setModal2Open } = useContext(ModalContext);
 
+  const updateModalOpen = (e, bool, num) => {
+    e.preventDefault();
+    if (num == 0) {
+      if (bool) {
+        setModalOpen("modalOpen");
+      } else {
+        setModalOpen("modalClosed");
+      }
+    } else {
+      if (bool) {
+        setModal2Open("modal2Open");
+      } else {
+        setModal2Open("modal2Closed");
+      }
+    }
+  };
 
   const calculateIpv4Length = (bool, val) => {
     if (bool) {
-      setIpv4Length(ipv4Length + val)
+      setIpv4Length(ipv4Length + val);
     } else {
-      setIpv4Length(ipv4Length - val)
+      setIpv4Length(ipv4Length - val);
     }
-  }
+  };
   const calculateUdpLength = (bool, val) => {
     if (bool) {
-      setUdpLength(udpLength + val)
+      setUdpLength(udpLength + val);
     } else {
-      setUdpLength(udpLength - val)
+      setUdpLength(udpLength - val);
     }
-  }
+  };
 
   const calculateLengths = (newVal) => {
     if (newVal === "") {
-      newVal = "0"
+      newVal = "0";
     }
-    setIpv4Length(ipv4Length + parseInt(newVal) - oldPayloadLength.current)
-    setUdpLength(udpLength + parseInt(newVal) - oldPayloadLength.current)
-  }
+    setIpv4Length(ipv4Length + parseInt(newVal) - oldPayloadLength.current);
+    setUdpLength(udpLength + parseInt(newVal) - oldPayloadLength.current);
+  };
 
-  const [timer, setTimer] = useState(null)
+  const [timer, setTimer] = useState(null);
   const updateLengths = (e) => {
     const newVal = e.currentTarget.value;
     if (payloadLength === "") {
-      oldPayloadLength.current = 0
+      oldPayloadLength.current = 0;
     } else {
-      oldPayloadLength.current = parseInt(payloadLength)
+      oldPayloadLength.current = parseInt(payloadLength);
     }
 
-    setPayloadLength(e.currentTarget.value)
-    clearTimeout(timer)
+    setPayloadLength(e.currentTarget.value);
+    clearTimeout(timer);
 
     const newTimer = setTimeout(() => {
-      calculateLengths(newVal)
-    }, 1)
+      calculateLengths(newVal);
+    }, 1);
 
-    setTimer(newTimer)
-  }
+    setTimer(newTimer);
+  };
 
   const sendData = (form) => {
     let output_console = document.querySelector(".console");
@@ -240,6 +258,19 @@ const GenerationForm = (props) => {
         </select>
       </form>
       <form id="gen-form-3">
+      <header> Info: </header>
+        <div className="gen-form-3-content">
+          <button
+            className="openModalBtn"
+            onClick={(e) => {
+              updateModalOpen(e, true, port);
+            }}
+          >
+            Stream Manager
+          </button>
+
+          {/* {modalOpen && <Modal setOpenModal={updateModalOpen} />} */}
+        </div>
         {/* <header> Test Type: </header>
         <section className="radio-sectiont">
           <div className="radio-listt">
@@ -274,42 +305,43 @@ const GenerationForm = (props) => {
       </form>
       <form className="gaps" id="gaps-form">
         <div id="diagram">
-          <span>ISG</span> <span>PKT1</span> <span>IPG</span> <span>PKT2</span> <span>IBG</span>
+          <span>ISG</span> <span>PKT1</span> <span>IPG</span> <span>PKT2</span>{" "}
+          <span>IBG</span>
           <span>PKT1</span> <span> IPG</span> <span>PKT2</span>
         </div>
         <div className="gaps-inputs">
-        <div className="interstart">
+          <div className="interstart">
             <label>Inter-start Gap (ISG)</label>
-            <div className = "ipbg">
-            <input
-              type="text"
-              value={ISG}
-              onChange={(e) => setISG(e.target.value)}
-            />
-            <span className = "ms">ms</span>
+            <div className="ipbg">
+              <input
+                type="text"
+                value={ISG}
+                onChange={(e) => setISG(e.target.value)}
+              />
+              <span className="ms">ms</span>
             </div>
           </div>
           <div className="interpacket">
             <label>Inter-packet Gap (IPG)</label>
-            <div className = "ipbg">
-            <input
-              type="text"
-              value={IPG}
-              onChange={(e) => setIPG(e.target.value)}
-            />
-            <span className = "ms">ms</span>
+            <div className="ipbg">
+              <input
+                type="text"
+                value={IPG}
+                onChange={(e) => setIPG(e.target.value)}
+              />
+              <span className="ms">ms</span>
             </div>
           </div>
           <div className="interburst">
             <label>Inter-burst Gap (IBG) </label>
-            <div className = "ipbg">
-            <input
-              type="text"
-              value={mode === "Continuous" || mode === "Fixed" ? "0" : IBG}
-              disabled={mode === "Continuous" || mode === "Fixed"}
-              onChange={(e) => setIBG(e.target.value)} 
-            />
-            <span className = "ms">ms</span>
+            <div className="ipbg">
+              <input
+                type="text"
+                value={mode === "Continuous" || mode === "Fixed" ? "0" : IBG}
+                disabled={mode === "Continuous" || mode === "Fixed"}
+                onChange={(e) => setIBG(e.target.value)}
+              />
+              <span className="ms">ms</span>
             </div>
           </div>
         </div>
@@ -335,44 +367,57 @@ const GenerationForm = (props) => {
         <input
           type="text"
           // required
-          value = {macDa}
+          value={macDa}
           onChange={(e) => setMacDa(e.target.value)}
         />
         <div class="inner-group">
           <label for="mac-sa">Source Address</label>
           {/* <input type="checkbox" id="mac-sa" disabled={mac === false} onChange = {(e) => setMacSaEn(e.currentTarget.checked)}
           checked = {mac === false ? false : macSaEn}/>        */}
-           </div>
+        </div>
         <input
           // required
           // value={burstLength}
-          value = {macSa}
+          value={macSa}
           onChange={(e) => setMacSa(e.target.value)}
         ></input>
         <div class="inner-group">
           <label for="vlan">VLAN-Tag</label>
-          <input type="checkbox" id="vlan" disabled={mac === false} onChange = {(e) => setVlanEn(e.currentTarget.checked)}
-          checked = {mac === false ? false : vlanEn}/>
+          <input
+            type="checkbox"
+            id="vlan"
+            disabled={mac === false}
+            onChange={(e) => setVlanEn(e.currentTarget.checked)}
+            checked={mac === false ? false : vlanEn}
+          />
         </div>
-        <input disabled={vlanEn === false || mac === false} value = {vlanEn === false || mac === false ? "N/A" : vlan}
-        onChange = {(e) => setVlan(e.currentTarget.value)}></input>
+        <input
+          disabled={vlanEn === false || mac === false}
+          value={vlanEn === false || mac === false ? "N/A" : vlan}
+          onChange={(e) => setVlan(e.currentTarget.value)}
+        ></input>
 
         <div class="inner-group">
           <label for="ethertype">Ethertype</label>
           {/* <input type="checkbox" id="ethertype" disabled={mac === false} onChange = {(e) => setEthTypeEn(e.currentTarget.checked)}
           checked = {mac === false ? false : ethTypeEn}/>  */}
-           </div>
-           <input value = {ethType}
-        onChange = {(e) => setEthType(e.currentTarget.value)}></input>
-        </form>
+        </div>
+        <input
+          value={ethType}
+          onChange={(e) => setEthType(e.currentTarget.value)}
+        ></input>
+      </form>
       <form id="gen-form-5">
         <div class="group">
           <label for="ipv4-enable">IPv4</label>
           <input
             type="checkbox"
             id="ipv4-enable"
-            checked = {ipv4}
-            onChange={(e) => [ipv4En(e.target.checked), calculateIpv4Length(e.target.checked, 20)]}
+            checked={ipv4}
+            onChange={(e) => [
+              ipv4En(e.target.checked),
+              calculateIpv4Length(e.target.checked, 20),
+            ]}
           />
         </div>
         <div>
@@ -381,8 +426,11 @@ const GenerationForm = (props) => {
             {/* <input type="checkbox" id="version" disabled={ipv4 === false} onChange = {(e) => [setVersionEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 1)]}
           checked = {ipv4 === false ? false : versionEn}/>            */}
           </div>
-          <input disabled={ipv4 === false} value = {ipv4 === false ? "N/A" : version}
-        onChange = {(e) => setVersion(e.currentTarget.value)}></input>
+          <input
+            disabled={ipv4 === false}
+            value={ipv4 === false ? "N/A" : version}
+            onChange={(e) => setVersion(e.currentTarget.value)}
+          ></input>
         </div>
         <div>
           <div class="inner-group">
@@ -390,8 +438,11 @@ const GenerationForm = (props) => {
             {/* <input type="checkbox" id="dscp" disabled={ipv4 === false} onChange = {(e) => [setDscpEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 1)]}
           checked = {ipv4 === false ? false : dscpEn}/> */}
           </div>
-          <input disabled={ipv4 === false} value = {ipv4 === false ? "N/A" : dscp}
-        onChange = {(e) => setDscp(e.currentTarget.value)}></input>
+          <input
+            disabled={ipv4 === false}
+            value={ipv4 === false ? "N/A" : dscp}
+            onChange={(e) => setDscp(e.currentTarget.value)}
+          ></input>
         </div>
         <div>
           <div class="inner-group">
@@ -399,8 +450,11 @@ const GenerationForm = (props) => {
             {/* <input type="checkbox" id="identification" disabled={ipv4 === false} onChange = {(e) => [setIdentificationEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 2)]}
           checked = {ipv4 === false ? false : identificationEn}/> */}
           </div>
-          <input disabled={ipv4 === false} value = {ipv4 === false ? "N/A" : identification}
-        onChange = {(e) => setIdentification(e.currentTarget.value)}></input>        
+          <input
+            disabled={ipv4 === false}
+            value={ipv4 === false ? "N/A" : identification}
+            onChange={(e) => setIdentification(e.currentTarget.value)}
+          ></input>
         </div>
         <div>
           <div class="inner-group">
@@ -408,8 +462,11 @@ const GenerationForm = (props) => {
             {/* <input type="checkbox" id="flags" disabled={ipv4 === false} onChange = {(e) => [setFlagsEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 2)]}
           checked = {ipv4 === false ? false : flagsEn}/>           */}
           </div>
-          <input disabled={ipv4 === false} value = {ipv4 === false ? "N/A" : flags}
-        onChange = {(e) => setFlags(e.currentTarget.value)}></input>        
+          <input
+            disabled={ipv4 === false}
+            value={ipv4 === false ? "N/A" : flags}
+            onChange={(e) => setFlags(e.currentTarget.value)}
+          ></input>
         </div>
         <div>
           <div class="inner-group">
@@ -417,8 +474,11 @@ const GenerationForm = (props) => {
             {/* <input type="checkbox" id="timetolive" disabled={ipv4 === false} onChange = {(e) => [setTimetoliveEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 1)]}
           checked = {ipv4 === false ? false : timetoliveEn}/> */}
           </div>
-          <input disabled={ipv4 === false} value = {ipv4 === false ? "N/A" : timetolive}
-        onChange = {(e) => setTimetolive(e.currentTarget.value)}></input> 
+          <input
+            disabled={ipv4 === false}
+            value={ipv4 === false ? "N/A" : timetolive}
+            onChange={(e) => setTimetolive(e.currentTarget.value)}
+          ></input>
         </div>
         <div>
           <header id="blank">Blank</header>
@@ -429,8 +489,11 @@ const GenerationForm = (props) => {
             {/* <input type="checkbox" id="protocol" disabled={ipv4 === false} onChange = {(e) => [setProtocolEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 1)]}
           checked = {ipv4 === false ? false : protocolEn}/> */}
           </div>
-          <input disabled={ipv4 === false} value = {ipv4 === false ? "N/A" : protocol}
-        onChange = {(e) => setProtocol(e.currentTarget.value)}></input> 
+          <input
+            disabled={ipv4 === false}
+            value={ipv4 === false ? "N/A" : protocol}
+            onChange={(e) => setProtocol(e.currentTarget.value)}
+          ></input>
         </div>
         <div>
           <div class="inner-group">
@@ -438,8 +501,11 @@ const GenerationForm = (props) => {
             {/* <input type="checkbox" id="da" disabled={ipv4 === false} onChange = {(e) => [setIpv4DaEn(e.currentTarget.checked), , calculateIpv4Length(e.currentTarget.checked, 4)]}
           checked = {ipv4 === false ? false : ipv4DaEn}/> */}
           </div>
-          <input disabled={ipv4 === false} value = {ipv4 === false ? "N/A" : ipv4Da}
-        onChange = {(e) => setIpv4Da(e.currentTarget.value)}></input> 
+          <input
+            disabled={ipv4 === false}
+            value={ipv4 === false ? "N/A" : ipv4Da}
+            onChange={(e) => setIpv4Da(e.currentTarget.value)}
+          ></input>
         </div>
         <div>
           <div class="inner-group">
@@ -447,8 +513,11 @@ const GenerationForm = (props) => {
             {/* <input type="checkbox" id="sa" disabled={ipv4 === false} onChange = {(e) => [setIpv4SaEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 4)]}
           checked = {ipv4 === false ? false : ipv4SaEn}/> */}
           </div>
-          <input disabled={ ipv4 === false} value = {ipv4 === false ? "N/A" : ipv4Sa}
-        onChange = {(e) => setIpv4Sa(e.currentTarget.value)}></input> 
+          <input
+            disabled={ipv4 === false}
+            value={ipv4 === false ? "N/A" : ipv4Sa}
+            onChange={(e) => setIpv4Sa(e.currentTarget.value)}
+          ></input>
         </div>
         <div>
           <div class="inner-group">
@@ -456,7 +525,10 @@ const GenerationForm = (props) => {
             {/* <input type="checkbox" id="ip-length" disabled={ipv4 === false} onChange = {(e) => [setIpv4LengthEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 2)]}
           checked = {ipv4 === false ? false : ipv4LengthEn}/>   */}
           </div>
-          <input disabled={true} value={ipv4 === true ? ipv4Length + " Bytes": "0 Bytes"}></input>
+          <input
+            disabled={true}
+            value={ipv4 === true ? ipv4Length + " Bytes" : "0 Bytes"}
+          ></input>
         </div>
         <div>
           <div class="inner-group">
@@ -473,9 +545,13 @@ const GenerationForm = (props) => {
           <input
             type="checkbox"
             id="udp-enable"
-            disabled = {ipv4 === false}
-            checked = {ipv4 === false ? false : udp}
-            onChange={(e) => [udpEn(e.target.checked), calculateIpv4Length(e.target.checked, 8), calculateUdpLength(e.target.checked, 8)]}
+            disabled={ipv4 === false}
+            checked={ipv4 === false ? false : udp}
+            onChange={(e) => [
+              udpEn(e.target.checked),
+              calculateIpv4Length(e.target.checked, 8),
+              calculateUdpLength(e.target.checked, 8),
+            ]}
           />
         </div>
         <div class="inner-group">
@@ -483,22 +559,31 @@ const GenerationForm = (props) => {
           {/* <input type="checkbox" id="udp-da" disabled={udp === false} onChange = {(e) => [setUdpDaEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
             checked =  {udp === false ? false : udpDaEn}/> */}
         </div>
-        <input disabled={udp === false} value = {udp === false ? "N/A" : udpDa}
-        onChange = {(e) => setUdpDa(e.currentTarget.value)}></input> 
+        <input
+          disabled={udp === false}
+          value={udp === false ? "N/A" : udpDa}
+          onChange={(e) => setUdpDa(e.currentTarget.value)}
+        ></input>
         <div class="inner-group">
           <label for="udp-sa">Source Address</label>
           {/* <input type="checkbox" id="udp-sa" disabled={udp === false} onChange = {(e) => [setUdpSaEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
             checked =  {udp === false ? false : udpSaEn}/> */}
         </div>
-        <input disabled={udp === false} value = {udp === false ? "N/A" : udpSa}
-        onChange = {(e) => setUdpSa(e.currentTarget.value)}></input> 
+        <input
+          disabled={udp === false}
+          value={udp === false ? "N/A" : udpSa}
+          onChange={(e) => setUdpSa(e.currentTarget.value)}
+        ></input>
         <div>
           <div class="inner-group">
             <label for="udp-length">Length</label>
             {/* <input type="checkbox" id="udp-length" disabled={udp === false} onChange = {(e) => [setUdpLengthEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
           checked = {udp === false ? false : udpLengthEn}/> */}
           </div>
-          <input disabled={true} value={udp === true ? udpLength + " Bytes": "0 Bytes"}></input>
+          <input
+            disabled={true}
+            value={udp === true ? udpLength + " Bytes" : "0 Bytes"}
+          ></input>
         </div>
         <div>
           <div class="inner-group">
@@ -510,59 +595,53 @@ const GenerationForm = (props) => {
         </div>
       </form>
       <form id="gen-form-7">
-      <header>
-          Payload
-        </header>
-      {/* <div className="BERT">
+        <header>Payload</header>
+        {/* <div className="BERT">
           <div class="inner-group-bert">
             <label for="bert">BERT</label>
             <input type="checkbox" id="bert" onChange={(e) => setBert(e.target.checked)}/>
           </div>
           </div> */}
         <div>
-        <label>Type:</label>
-        <select value={payload} onChange={(e) => setPayload(e.target.value)}>
-          <option value="None">
-            None
-          </option>
-          <option value="Increment">Increment Byte</option>
-          <option value="Decrement">
-            Decrement Byte
-          </option>
-          <option value="Random">
-            Random
-          </option>
-          <option value="BERT">
-            BERT
-          </option>
-          <option value="Fixed">
-            Fixed
-          </option>
-        </select>
+          <label>Type:</label>
+          <select value={payload} onChange={(e) => setPayload(e.target.value)}>
+            <option value="None">None</option>
+            <option value="Increment">Increment Byte</option>
+            <option value="Decrement">Decrement Byte</option>
+            <option value="Random">Random</option>
+            <option value="BERT">BERT</option>
+            <option value="Fixed">Fixed</option>
+          </select>
         </div>
         <div class="inner-group">
           <label for="payload-length">Length</label>
           {/* <input type="checkbox" id="udp-da" disabled={udp === false} onChange = {(e) => [setUdpDaEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
             checked =  {udp === false ? false : udpDaEn}/> */}
         </div>
-        <input disabled={payload === "None"} value = {payload === "None" ? "N/A" : payloadLength}
-        placeholder = "0 - 1024 Bytes" type = "number"
-        onChange = {(e) => updateLengths(e)}></input>
-        <div style={{
-          visibility: payload === "Fixed" ? "visible" : "hidden",
-        }}>
-        <div class="inner-group">
-          <label for="payload-pattern">Pattern</label>
-          {/* <input type="checkbox" id="udp-da" disabled={udp === false} onChange = {(e) => [setUdpDaEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
+        <input
+          disabled={payload === "None"}
+          value={payload === "None" ? "N/A" : payloadLength}
+          placeholder="0 - 1500 Bytes"
+          type="number"
+          onChange={(e) => updateLengths(e)}
+        ></input>
+        <div
+          style={{
+            visibility: payload === "Fixed" ? "visible" : "hidden",
+          }}
+        >
+          <div class="inner-group">
+            <label for="payload-pattern">Pattern</label>
+            {/* <input type="checkbox" id="udp-da" disabled={udp === false} onChange = {(e) => [setUdpDaEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
             checked =  {udp === false ? false : udpDaEn}/> */}
-        </div>
-        <input value = {payloadPattern}
-        
-        placeholder = "Enter 8 bit pattern"
-        onChange = {(e) => setPayloadPattern(e.currentTarget.value)}></input>  
+          </div>
+          <input
+            value={payloadPattern}
+            placeholder="Enter 8 byte pattern"
+            onChange={(e) => setPayloadPattern(e.currentTarget.value)}
+          ></input>
         </div>
       </form>
-
     </div>
   );
 };

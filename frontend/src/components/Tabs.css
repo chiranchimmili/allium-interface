@@ -89,6 +89,7 @@ button {
   display: flex;
   min-height: 0;
   flex-grow: 1;
+  justify-content: center;
 }
 
 
@@ -161,6 +162,7 @@ button {
   display: flex;
   min-height: 0;
   flex-grow: 1;
+  justify-content: center;
 }
 
 
@@ -240,4 +242,90 @@ button {
   flex-direction: column;
   overflow: auto;
   width: 100%;
+}
+
+.modalClosed {
+  visibility: hidden;
+}
+
+
+.results1-container {
+  display: flex;
+  min-height: 0;
+  min-width: 0;
+  flex-direction: column;
+  overflow: auto;
+  width: 100%;
+}
+
+
+
+
+
+.bloc-tabs3 {
+  display: flex;
+  width: 600px;
+  padding-left: 20px;
+}
+.tabs3 {
+  padding: 15px;
+  text-align: center;
+  background: rgba(128, 128, 128, 0.075);
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  width: 120px;
+}
+.tabs3:not(:last-child){
+  border-right: 1px solid rgba(0, 0, 0, 0.274);
+}
+
+.active-tabs3  {
+  background: white;
+  border-bottom: 1px solid transparent;
+  border-color: #524eee;
+}
+
+.active-tabs3::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 2px);
+  height: 5px;
+  background: #524eee;
+}
+
+
+.content-tabs3 {
+  height:100%;
+}
+
+.content3 {
+  background: white;
+  padding: 0px;
+  display: none;
+  min-height: 0;
+  height: 100%;
+}
+.content3 h2 {
+  padding: 0px 0 5px 0px;
+}
+.content3 hr {
+  height: 2px;
+  background: #222;
+  margin-bottom: 5px;
+}
+.content3 p {
+  color: black;
+}
+.active-content3 {
+  height: 100%;
+  display: flex;
+  min-height: 0;
+  flex-grow: 1;
 }

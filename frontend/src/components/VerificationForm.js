@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import axios from "axios";
 import "./Console.js";
 import "./Form.css";
 import "./GenerationForm.css";
+import ModalContext from "../ModalContext.js";
 
 const VerificationForm = (props) => {
 
@@ -14,6 +15,7 @@ const VerificationForm = (props) => {
   const [mode, setMode] = useState("Continuous");
   const [IPG, setIPG] = useState("0");
   const [IBG, setIBG] = useState("0");
+  const [ISG, setISG] = useState("0");
 
   const [mac, macEn] = useState(true);
   const [macDa, setMacDa] = useState("")
@@ -43,6 +45,26 @@ const VerificationForm = (props) => {
   const [payloadPattern, setPayloadPattern] = useState("")
 
   const oldPayloadLength = useRef(0);
+
+  const { setModalOpen } = useContext(ModalContext);
+  const { setModal2Open } = useContext(ModalContext);
+
+  const updateModalOpen = (e, bool, num) => {
+    e.preventDefault();
+    if (num == 0) {
+      if (bool) {
+        setModalOpen("modalOpen");
+      } else {
+        setModalOpen("modalClosed");
+      }
+    } else {
+      if (bool) {
+        setModal2Open("modal2Open");
+      } else {
+        setModal2Open("modal2Closed");
+      }
+    }
+  };
 
 
 
@@ -239,6 +261,17 @@ const VerificationForm = (props) => {
         </select>
       </form>
       <form id="gen-form-3">
+      <header> Info: </header>
+        <div className="gen-form-3-content">
+          <button
+            className="openModalBtn"
+            onClick={(e) => {
+              updateModalOpen(e, true, port);
+            }}
+          >
+            Stream Manager
+          </button>
+            </div>
         {/* <header> Test Type: </header>
         <section className="radio-sectiont">
           <div className="radio-listt">
@@ -273,10 +306,21 @@ const VerificationForm = (props) => {
       </form>
       <form className="gaps" id="gaps-form">
         <div id="diagram">
-          <span>PKT1</span> <span>IPG</span> <span>PKT2</span> <span>IBG</span>
+          <span>ISG</span><span>PKT1</span> <span>IPG</span> <span>PKT2</span> <span>IBG</span>
           <span>PKT1</span> <span> IPG</span> <span>PKT2</span>
         </div>
         <div className="gaps-inputs">
+        <div className="interstart">
+            <label>Inter-start Gap (ISG)</label>
+            <div className="ipbg">
+              <input
+                type="text"
+                value={ISG}
+                onChange={(e) => setISG(e.target.value)}
+              />
+              <span className="ms">ms</span>
+            </div>
+          </div>
           <div className="interpacket">
             <label>Inter-packet Gap (IPG)</label>
             <div className = "ipbg">
