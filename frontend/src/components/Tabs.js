@@ -8,6 +8,7 @@ import VerificationForm from "./VerificationForm";
 import GenerationResults from "./GenerationResults"
 import ModalContext from "../ModalContext";
 import Modal from "./Modal";
+import VerificationResults from "./VerificationResults";
 
 const Tabs = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -179,6 +180,8 @@ const Tabs = () => {
               toggleState2 === 6 ? "content2 active-content2" : "content2"
             }
           >
+            <VerificationResults key = {0}></VerificationResults>
+
           </div>
         </div>
       </div>
@@ -210,13 +213,13 @@ const Tabs = () => {
             }
           >
             <GenerationResults key = {1}></GenerationResults>
-            <div></div>
           </div>
           <div
             className={
               toggleState3 === 8 ? "content3 active-content3" : "content3"
             }
           >
+            <VerificationResults key = {1}></VerificationResults>
           </div>
         </div>
       </div>

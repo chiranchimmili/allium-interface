@@ -4,6 +4,8 @@
     display: flex;
     padding: 4 !important;
     background-color: white;
+    justify-content: space-between;
+    align-items: center;
   }
 
 #start-button {
@@ -12,8 +14,25 @@
     
 }
 
+.control-buttons {
+    padding-left: 8px;
+}
+
 #end-button {
     background-color: transparent;
     cursor: pointer;
 
+}
+#pause-button {
+    background-color: transparent;
+    cursor: pointer;
+
+}
+.logo {
+    display: block;
+    width: 120px;
+    height: 60px;
+    content: url("../data/logoViasat.jpg");
+    position: relative;
+    bottom: 4px;
 }

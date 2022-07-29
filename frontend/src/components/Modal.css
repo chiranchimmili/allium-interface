@@ -1,6 +1,6 @@
 .modalBackground {
     width: 700px;
-    height: 400px;
+    height: 365px;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -17,14 +17,21 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
     flex-direction: column;
-    padding: 12px;
+    padding: 8px;
   }
   
   .modalContainer .title {
-    display: block;
-    text-align: center;
-    padding-right: 185px;
-    font-size: 12px;
+    display: flex;
+    text-align: top;
+    font-size: 8px;
+    padding-left: 8px;
+  }
+
+  .not-title {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
   
   .titleCloseBtn {
@@ -75,15 +82,41 @@
   .top {
     display: flex;
     flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 40px;
   }
 
   .modalButtons {
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     gap: 10px;
+  }
+
+  .modalButtons span {
+    font-size: 11.5px;
+    font-weight: 200;
   }
 
   .modalButtons button {
     cursor: pointer;
+    background-color: white;
+    height: 20px;
+  }
+  .modalButtons > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .stream-list {
+    margin-top: 10px;
+    height: 300px;
+    width: 600px;
+    border: 1px solid gray;
+    display: table;
+    overflow: scroll;
   }
