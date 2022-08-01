@@ -1,6 +1,6 @@
 .modalBackground {
     width: 700px;
-    height: 365px;
+    height: 465px;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -113,10 +113,79 @@
   }
 
   .stream-list {
-    margin-top: 10px;
-    height: 300px;
+    height: 290px;
     width: 600px;
-    border: 1px solid gray;
-    display: table;
-    overflow: scroll;
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+    display: table-header-group;
+    table-layout: fixed;
+    overflow-y: auto;
+    border-collapse: separate;
+    border-spacing: 10px;
+
+    
   }
+
+ .table-headers {
+  margin-top: 8px;
+  display: flex;
+  width: 600px;
+  border: 1px solid gray;
+ }
+ 
+ .table-headers div:nth-child(1) {
+  width: 150px;
+ }
+ .table-headers div:nth-child(2) {
+  width: 280px;
+ }
+ .table-headers div:nth-child(3) {
+  width: 100px;
+ }
+
+
+.stream-list tr {
+  line-height: 50px;
+  gap: 10px;
+  text-align: left;
+}
+
+.stream-list td:nth-child(1) {
+  width: 30px;
+}
+
+.stream-list td:nth-child(2) {
+  width: 200px;
+}
+
+.stream-list td:nth-child(3) {
+  width: 175px;
+}
+
+
+.stream-list::-webkit-scrollbar {
+  width: 14px;
+  border-radius: 25px;
+}
+
+.stream-list::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 20px;
+}
+
+.stream-list::-webkit-scrollbar-thumb {
+  border-radius: 90vh;
+  background: #524eee;
+}
+.stream-list::-webkit-scrollbar-track-piece {
+  border-radius: 20px;
+}
+
+.stream-list td {
+  font-weight: 300;
+  font-size: 14px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  max-width: 190px;
+}

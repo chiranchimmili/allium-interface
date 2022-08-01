@@ -70,7 +70,7 @@ const Tabs = () => {
           display: page === "configuration-container" ? "flex" : "none",
         }}
       >
-        <div className="bloc-tabs">
+        {/* <div className="bloc-tabs">
           <button
             className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
             onClick={(e) => [toggleTab(1), updateModalOpen(e, false, 0, 1)]}
@@ -83,7 +83,7 @@ const Tabs = () => {
           >
             Verification
           </button>
-        </div>
+        </div> */}
 
         <div className="content-tabs">
           <div
@@ -110,7 +110,7 @@ const Tabs = () => {
           display: page === "configuration1-container" ? "flex" : "none",
         }}
       >
-        <div className="bloc-tabs1">
+        {/* <div className="bloc-tabs1">
           <button
             className={toggleState1 === 3 ? "tabs1 active-tabs1" : "tabs1"}
             onClick={(e) => [toggleTab1(3), updateModalOpen(e, false, 1, 3)]}
@@ -123,7 +123,7 @@ const Tabs = () => {
           >
             Verification
           </button>
-        </div>
+        </div> */}
 
         <div className="content-tabs1">
           <div

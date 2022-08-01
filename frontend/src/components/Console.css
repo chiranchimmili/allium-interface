@@ -24,7 +24,7 @@
   padding-top: 5px;
   color: black;
 }
-th {
+.console th {
   padding-left: 5px;
   padding-right: 10px;
   padding-bottom: 4px;
@@ -34,7 +34,7 @@ th {
   width: 20px;
 }
 
-tr > :nth-child(3) {
+.console tr > :nth-child(3) {
   width: auto;
 }
 

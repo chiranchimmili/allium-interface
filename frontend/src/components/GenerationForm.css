@@ -65,7 +65,7 @@
 }
 
 .radio-itemt + .radio-itemt{
-    margin-top: 5px;
+    margin-top: 2px;
 }
 .radio-itemt label{
     display: block;
@@ -115,8 +115,8 @@
 
 }
 .configuration1-container .radio-item [type="radio"]{
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -181,7 +181,7 @@
 #gen-form-1 header {
     text-align: left;
     font-size: 18px;
-    padding-left: 10px;
+    padding-left: 0px;
     padding-bottom: 5px;
     font-weight: normal;
 }
@@ -189,8 +189,8 @@
 #gen-form-3 header {
     text-align: left;
     font-size: 18px;
-    padding-left: 10px;
-    padding-bottom: 5px;
+    padding-left: 0px;
+    padding-bottom: 10px;
     font-weight: normal;
 }
 
@@ -512,12 +512,11 @@
   display: flex;
   align-items: left;
   flex-direction: column;
-  font-family: "Nunito", sans-serif;
 }
 
 .gen-form-3-content .openModalBtn {
-    margin-top: 10px;
-    margin-left: 10px;
+  margin-top: 0px;
+  margin-left: 0px;
   width: 120px;
   height: 30px;
   border: none;
@@ -525,4 +524,14 @@
   background-color: #524eee;
   color: white;
   cursor: pointer;
+  margin-bottom: 10px;
+  
+}
+
+.gen-form-3-content>*:first-child {
+    align-self: center;
+}
+
+.radio-sectiont {
+    margin-top: 4px;
 }

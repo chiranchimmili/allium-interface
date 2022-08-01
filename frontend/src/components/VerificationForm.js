@@ -49,6 +49,14 @@ const VerificationForm = (props) => {
   const { setModalOpen } = useContext(ModalContext);
   const { setModal2Open } = useContext(ModalContext);
 
+  const { rowsData } = useContext(ModalContext)
+  const { rowsData2 } = useContext(ModalContext)
+  const { selectedRow } = useContext(ModalContext)
+  const { selectedRow2 } = useContext(ModalContext)
+
+  const [streamName, setStreamName] = useState(" ")
+  const [streamName2, setStreamName2] = useState(" ")
+
   const updateModalOpen = (e, bool, num) => {
     e.preventDefault();
     if (num == 0) {
@@ -163,6 +171,34 @@ const VerificationForm = (props) => {
     sendData(generationForm);
   };
 
+  const updateName = (e, port) => {
+    if (port == 0) {
+      if (rowsData[selectedRow]) {
+        rowsData[selectedRow].name = e.currentTarget.value;
+        setStreamName(e.currentTarget.value)
+      }
+    } else {
+    if (rowsData2[selectedRow2]) {
+      rowsData2[selectedRow2].name = e.currentTarget.value;
+      setStreamName2(e.currentTarget.value)
+      }
+    }
+  }
+
+  const determineStreamName = (port) => {
+    if (port == 0) {
+      if (rowsData[selectedRow]) {
+        return rowsData[selectedRow].name
+
+      }
+    } else {
+      if (rowsData2[selectedRow2]) {
+        return rowsData2[selectedRow2].name
+      }
+    }
+    return " "
+  }
+
   return (
     <div className="inputs">
       <header className="stream-properties"> Stream Properties </header>
@@ -272,6 +308,13 @@ const VerificationForm = (props) => {
             Stream Manager
           </button>
             </div>
+            <label for="name">Name:</label>
+        <input
+          type="text"
+          // required
+          value={determineStreamName(port) }
+          onChange={(e) => updateName(e, port)}
+        />
         {/* <header> Test Type: </header>
         <section className="radio-sectiont">
           <div className="radio-listt">

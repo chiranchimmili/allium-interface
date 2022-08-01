@@ -7,7 +7,7 @@ import ModalContext from "../ModalContext.js";
 
 const GenerationForm = (props) => {
   const port = props.keyProp;
-  const testType = 0;
+  const [testType, setType] = useState("Generation")
   const [packetCount, setPacketCount] = useState("");
   const [burstLength, setBurstLength] = useState("");
   const [speed, setSpeed] = useState("1G");
@@ -47,6 +47,14 @@ const GenerationForm = (props) => {
 
   const { setModalOpen } = useContext(ModalContext);
   const { setModal2Open } = useContext(ModalContext);
+
+  const { rowsData } = useContext(ModalContext)
+  const { rowsData2 } = useContext(ModalContext)
+  const { selectedRow } = useContext(ModalContext)
+  const { selectedRow2 } = useContext(ModalContext)
+
+  const [streamName, setStreamName] = useState(" ")
+  const [streamName2, setStreamName2] = useState(" ")
 
   const updateModalOpen = (e, bool, num) => {
     e.preventDefault();
@@ -160,6 +168,54 @@ const GenerationForm = (props) => {
     sendData(generationForm);
   };
 
+  const updateName = (e, port) => {
+    if (port == 0) {
+      if (rowsData[selectedRow]) {
+        rowsData[selectedRow].name = e.currentTarget.value;
+        setStreamName(e.currentTarget.value)
+      }
+    } else {
+    if (rowsData2[selectedRow2]) {
+      rowsData2[selectedRow2].name = e.currentTarget.value;
+      setStreamName2(e.currentTarget.value)
+      }
+    }
+  }
+
+  const determineStreamName = (port) => {
+    if (port == 0) {
+      if (rowsData[selectedRow]) {
+        return rowsData[selectedRow].name
+
+      }
+    } else {
+      if (rowsData2[selectedRow2]) {
+        return rowsData2[selectedRow2].name
+      }
+    }
+    return " "
+  }
+
+  const updateMode = (mode, port) => {
+    if (port == 0) {
+      rowsData[selectedRow].mode = mode
+    }
+    else {
+      rowsData2[selectedRow2].mode = mode
+    }
+    setMode(mode)
+  }
+
+  const updateType = (type, port) => {
+    if (port == 0) {
+      rowsData[selectedRow].type = type
+    }
+    else {
+      rowsData2[selectedRow2].type = type
+    }
+    setType(type)
+  }
+  
   return (
     <div className="inputs">
       <header className="stream-properties"> Stream Properties </header>
@@ -174,7 +230,7 @@ const GenerationForm = (props) => {
                 id="radio1"
                 value="Continuous"
                 checked={mode === "Continuous"}
-                onChange={(e) => setMode(e.currentTarget.value)}
+                onChange={(e) => updateMode(e.currentTarget.value, port)}
               />
               <label htmlFor="radio1" id="radio1">
                 Continuous
@@ -186,7 +242,7 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio2"
                 value="Fixed"
-                onChange={(e) => setMode(e.currentTarget.value)}
+                onChange={(e) => updateMode(e.currentTarget.value, port)}
               />
               <label htmlFor="radio2" id="radio2">
                 Fixed
@@ -198,7 +254,7 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio3"
                 value="Fixed-Burst"
-                onChange={(e) => setMode(e.currentTarget.value)}
+                onChange={(e) => updateMode(e.currentTarget.value, port)}
               />
               <label htmlFor="radio3" id="radio3">
                 Fixed-Burst
@@ -210,7 +266,7 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio4"
                 value="Continuous-Burst"
-                onChange={(e) => setMode(e.currentTarget.value)}
+                onChange={(e) => updateMode(e.currentTarget.value, port)}
               />
               <label htmlFor="radio4" id="radio4">
                 Continuous-Burst
@@ -258,7 +314,6 @@ const GenerationForm = (props) => {
         </select>
       </form>
       <form id="gen-form-3">
-      <header> Info: </header>
         <div className="gen-form-3-content">
           <button
             className="openModalBtn"
@@ -268,10 +323,23 @@ const GenerationForm = (props) => {
           >
             Stream Manager
           </button>
-
+          <label for="name">Name:</label>
+        <input
+          type="text"
+          // required
+          value={determineStreamName(port) }
+          onChange={(e) => updateName(e, port)}
+        />
+        {/* <label for="Type">Type:</label>
+        <select>
+          <option value="Generation">
+            Generation
+          </option>
+          <option value="Verification">Verification</option>
+          </select> */}
           {/* {modalOpen && <Modal setOpenModal={updateModalOpen} />} */}
-        </div>
-        {/* <header> Test Type: </header>
+      
+        <label> Test Type: </label>
         <section className="radio-sectiont">
           <div className="radio-listt">
             <div className="radio-itemt">
@@ -281,7 +349,7 @@ const GenerationForm = (props) => {
                 id="radio1t"
                 value="Generation"
                 checked={testType === "Generation"}
-                onChange={(e) => setType(e.currentTarget.value)}
+                onChange={(e) => updateType(e.currentTarget.value, port)}
               />
               <label htmlFor="radio1t" id="radio1t">
                 Generation
@@ -294,14 +362,15 @@ const GenerationForm = (props) => {
                 id="radio2t"
                 value="Verification"
                 checked={testType === "Verification"}
-                onChange={(e) => setType(e.currentTarget.value)}
+                onChange={(e) => updateType(e.currentTarget.value, port)}
               />
               <label htmlFor="radio2t" id="radio2t">
                 Verification
               </label>
             </div>
           </div>
-        </section> */}
+        </section>
+        </div>
       </form>
       <form className="gaps" id="gaps-form">
         <div id="diagram">

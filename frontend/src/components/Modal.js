@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Modal.css";
 import ModalContext from "../ModalContext";
+import ModalRow from "./ModalRow";
 
 const Modal = (props) => {
   const modalNum = props.modalNum;
-  const { setModalOpen } = useContext(ModalContext);
-  const { setModal2Open } = useContext(ModalContext);
+  const { setModalOpen, setModal2Open, setRowsData, rowsData, setRowsData2, 
+    rowsData2, selectedRow, setSelectedRow, selectedRow2, setSelectedRow2 } = useContext(ModalContext);
 
   const updateModalOpen = (e, bool, num) => {
-    e.preventDefault();
     if (num == 0) {
       if (bool) {
         setModalOpen("modalOpen");
@@ -23,6 +23,62 @@ const Modal = (props) => {
       }
     }
   };
+
+  const addTableRows = (num) => {
+      const rowsInput = {
+          name:'New Stream',
+          type:'Generation',
+          mode:'Continuous'  
+      } 
+      if (num == 0) {
+        setRowsData([...rowsData, rowsInput])
+        setSelectedRow(rowsData.length)
+      } else {
+        setRowsData2([...rowsData2, rowsInput])
+        setSelectedRow2(rowsData2.length)
+      }
+    }
+  const deleteTableRows = (index, num) => {
+    if (num == 0) {
+      const rows = [...rowsData];
+      rows.splice(index, 1);
+      setRowsData(rows);
+      setSelectedRow(null)
+    }
+     else {
+      const rows = [...rowsData2];
+      rows.splice(index, 1);
+      setRowsData2(rows);
+      setSelectedRow2(null)
+     }
+   }
+ 
+   const handleChange = (index, e, num)=> {
+    const { name, value } = e.target;
+    if (num == 0) {
+      const rowsInput = [...rowsData];
+      rowsInput[index][name] = value;
+      setRowsData(rowsInput);
+    }
+     else {
+      const rowsInput = [...rowsData2];
+      rowsInput[index][name] = value;
+      setRowsData2(rowsInput);
+     }
+   }
+
+   const editStream = (e, num) => {
+    if (num == 0) {
+      if (selectedRow == null) {
+        return
+      }     }
+     else {
+    if (selectedRow2 == null) {
+      return
+    } 
+   }
+   updateModalOpen(e, false, num)
+  }
 
   return (
     <div className="modalBackground">
@@ -54,7 +110,7 @@ const Modal = (props) => {
         <div className="not-title">
           <div className="modalButtons">
             <div>
-              <button>
+              <button onClick={(e) => {addTableRows(modalNum)}}>
                 {" "}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +129,7 @@ const Modal = (props) => {
               <span> Add Stream </span>{" "}
             </div>
             <div>
-              <button>
+              <button onClick={(e) => {editStream(e, modalNum)}}>
                 {" "}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +165,7 @@ const Modal = (props) => {
               <span> Duplicate Stream </span>{" "}
             </div>
             <div>
-              <button>
+              <button  onClick={(e) => {deleteTableRows(selectedRow, modalNum)}}>
                 {" "}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +181,23 @@ const Modal = (props) => {
               <span> Delete Stream </span>{" "}
             </div>
           </div>
-          <div className="stream-list"></div>
+          <div className = "table-headers">
+            <div>
+              Name
+            </div>
+            <div>
+              Type
+            </div>
+            <div>
+              Mode
+            </div>
+          </div>
+            <div className="stream-list">
+            <tbody>
+              <ModalRow rowsData2 = {rowsData2} rowsData = {rowsData} handleChange = {handleChange} modalNum = {modalNum}
+              selectedRow = {selectedRow} setSelectedRow = {setSelectedRow} selectedRow2 = {selectedRow2} setSelectedRow2 = {setSelectedRow2}></ModalRow> 
+            </tbody>
+          </div>
         </div>
       </div>
     </div>
