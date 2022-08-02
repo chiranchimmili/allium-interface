@@ -10,11 +10,13 @@ export function ModalProvider({children}) {
     const [rowsData2, setRowsData2] = useState([]);
     const [selectedRow, setSelectedRow] = useState(0);
     const [selectedRow2, setSelectedRow2] = useState(0);
+    const [selectedRow3, setSelectedRow3] = useState(0);
+
 
 
     return (
         <ModalContext.Provider value={{modalOpen, setModalOpen, modal2Open, setModal2Open, rowsData, setRowsData, rowsData2, setRowsData2
-        , selectedRow, setSelectedRow, selectedRow2, setSelectedRow2}}>{children}</ModalContext.Provider>
+        , selectedRow, setSelectedRow, selectedRow2, setSelectedRow2, selectedRow3, setSelectedRow3}}>{children}</ModalContext.Provider>
     );
 }
 

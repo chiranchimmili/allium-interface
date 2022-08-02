@@ -1,28 +1,35 @@
 import "./Header.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import MainModal from "./MainModal";
+import { useState } from "react"
 
 const Header = () => {
+
+  const [mainModalOpen, setMainModalOpen] = useState(false);
+
   const startTest = () => {
-    let output_console = document.querySelector(".console");
-    let row = document.createElement("tr");
-    let title = document.createElement("th");
-    title.innerHTML = "Info";
-    let time = document.createElement("th");
-    time.innerHTML = new Date().toLocaleTimeString("en-GB");
-    let desc = document.createElement("th");
-    desc.innerHTML = "Starting test...";
-    row.appendChild(title);
-    row.appendChild(time);
-    row.appendChild(desc);
-    row.style.color = "#09aad3";
-    output_console.appendChild(row);
-    output_console.scrollTop = output_console.scrollHeight;
+    // let output_console = document.querySelector(".console");
+    // let row = document.createElement("tr");
+    // let title = document.createElement("th");
+    // title.innerHTML = "Info";
+    // let time = document.createElement("th");
+    // time.innerHTML = new Date().toLocaleTimeString("en-GB");
+    // let desc = document.createElement("th");
+    // desc.innerHTML = "Starting test...";
+    // row.appendChild(title);
+    // row.appendChild(time);
+    // row.appendChild(desc);
+    // row.style.color = "#09aad3";
+    // output_console.appendChild(row);
+    // output_console.scrollTop = output_console.scrollHeight;
   };
 
   return (
     <div className="header">
       <div className="control-buttons">
-        <button id="start-button" onClick={startTest}>
+        <button id="start-button" onClick={(e) => {
+          setMainModalOpen(true);
+        }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -60,7 +67,8 @@ const Header = () => {
         </button>
       </div>
       <div className="logo"></div>
-    </div>
+      {mainModalOpen && <MainModal setOpenModal={setMainModalOpen} />}    
+      </div>
   );
 };
 
