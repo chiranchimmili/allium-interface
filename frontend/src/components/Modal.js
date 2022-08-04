@@ -6,19 +6,21 @@ import ModalRow from "./ModalRow";
 const Modal = (props) => {
   const modalNum = props.modalNum;
   const { setModalOpen, setModal2Open, setRowsData, rowsData, setRowsData2, 
-    rowsData2, selectedRow, setSelectedRow, selectedRow2, setSelectedRow2 } = useContext(ModalContext);
+    rowsData2, selectedRow, setSelectedRow, selectedRow2, setSelectedRow2, updateAll } = useContext(ModalContext);
 
   const updateModalOpen = (e, bool, num) => {
     if (num == 0) {
       if (bool) {
         setModalOpen("modalOpen");
       } else {
+        updateAll(num)
         setModalOpen("modalClosed");
       }
     } else {
       if (bool) {
         setModal2Open("modal2Open");
       } else {
+        updateAll(num)
         setModal2Open("modal2Closed");
       }
     }
@@ -26,9 +28,44 @@ const Modal = (props) => {
 
   const addTableRows = (num) => {
       const rowsInput = {
-          name:'New Stream',
+          port: modalNum,
+          streamName: 'New Stream',
           type:'Generation',
-          mode:'Continuous'  
+          mode:'Continuous',
+          packetCount: '0',
+          burstLength: '0',
+          speed: '1000.0',
+          IPG: '0',
+          IBG: '0',
+          ISG: '0',
+          ISGUnit: 'ms',
+          IPGUnit: 'ms',
+          IBGUnit: 'ms',
+          macDa: '',
+          macSa: '',
+          vlan: '0x8100',
+          vlanEn: false,
+          ethType: '0x0800',
+          ipv4: false,
+          version: '0x45',
+          dscp: '0x00',
+          identification: '0x0000',
+          flags: '0x4000',
+          timetolive: '0x80',
+          protocol: '0x11',
+          ipv4Da: '',
+          ipv4Sa: '',
+          ipv4Length: 0,
+          udp: false,
+          udpDa: '',
+          udpSa: '',
+          udpLength: 0,
+          payload: 'None',
+          payloadLength: '',
+          payloadPattern: '',
+          nextStream: -1,
+          checked: false,
+          BERTPattern: ''
       } 
       if (num == 0) {
         setRowsData([...rowsData, rowsInput])
@@ -71,7 +108,8 @@ const Modal = (props) => {
     if (num == 0) {
       if (selectedRow == null) {
         return
-      }     }
+      }
+    }
      else {
     if (selectedRow2 == null) {
       return

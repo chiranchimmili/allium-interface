@@ -1,20 +1,25 @@
 import "./Modal.css";
 
-const MainModalRow = ({rowsData2, rowsData, selectedRow3, setSelectedRow3 }) => {
+const MainModalRow = ({rowsData2, rowsData, selectedRows, updateSelectedRows, containsIndex }) => {
     
     return (
         ([...rowsData, ...rowsData2]).map((data, index)=>{
-            const {name, type, mode} = data;
+            const {port, streamName, type, mode} = data;
             return(
                 <tr key={index}>
                     <td>
-                        <input type="checkbox" value = {index} onChange={(e) => {setSelectedRow3(e.currentTarget.value)}}
-                        checked = {selectedRow3 == index}></input>
+                        <input type="checkbox" value = {index} onChange={(e) => {updateSelectedRows(e.currentTarget.value, e.currentTarget.checked)}}
+                         ></input>
                     </td>
-                <td> {name}
+                <td> {index} </td>
+                <td> {port} </td>
+                <td> {streamName}
                 </td>
                 <td> {type} </td>
                 <td> {mode} </td>
+                <td>
+                    <input type="text" disabled = {!(selectedRows[index])}/>
+                </td>
             </tr>
             )
         })

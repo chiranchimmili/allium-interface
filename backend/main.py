@@ -7,3 +7,9 @@ app = Flask(__name__)
 def getInputs():
     print(request.get_json())
     return "Configuration Saved"
+
+
+@app.route('/start', methods=["POST"])
+def startTests():
+    print(request.get_json())
+    return "Tests Starting"

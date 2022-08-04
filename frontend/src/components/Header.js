@@ -7,23 +7,6 @@ const Header = () => {
 
   const [mainModalOpen, setMainModalOpen] = useState(false);
 
-  const startTest = () => {
-    // let output_console = document.querySelector(".console");
-    // let row = document.createElement("tr");
-    // let title = document.createElement("th");
-    // title.innerHTML = "Info";
-    // let time = document.createElement("th");
-    // time.innerHTML = new Date().toLocaleTimeString("en-GB");
-    // let desc = document.createElement("th");
-    // desc.innerHTML = "Starting test...";
-    // row.appendChild(title);
-    // row.appendChild(time);
-    // row.appendChild(desc);
-    // row.style.color = "#09aad3";
-    // output_console.appendChild(row);
-    // output_console.scrollTop = output_console.scrollHeight;
-  };
-
   return (
     <div className="header">
       <div className="control-buttons">

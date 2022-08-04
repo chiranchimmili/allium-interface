@@ -49,6 +49,9 @@
   input:disabled {
     background-color: #F7F7F7;
   }
+  select:disabled {
+    background-color: #F7F7F7;
+  }
 
   .configuration-container::-webkit-scrollbar {
     width: 10px;

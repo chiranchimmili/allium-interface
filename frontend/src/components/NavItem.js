@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useContext } from "react";
 import TabContext from "../TabContext";
+import ModalContext from "../ModalContext";
 
 const NavItem = ({ item }) => {
   const [open, setOpen] = useState(false);
   const { setPage } = useContext(TabContext);
+  const { setPort, updateAll } = useContext(ModalContext)
 
   const handleClick = (id) => {
     let config = document.querySelector("#Configuration0");
@@ -13,6 +15,8 @@ const NavItem = ({ item }) => {
     let results1 = document.querySelector("#Results1");
     if (id == "Results0") {
       if (!results.classList.contains("Active")) {
+        setPort(0)
+        updateAll(0)
         results.classList.add("Active");
         setPage("results-container");
         config.classList.remove("Active");
@@ -21,6 +25,8 @@ const NavItem = ({ item }) => {
       }
     } else if (id == "Configuration0") {
       if (!config.classList.contains("Active")) {
+        setPort(0)
+        updateAll(0)
         config.classList.add("Active");
         setPage("configuration-container");
         results.classList.remove("Active");
@@ -29,6 +35,8 @@ const NavItem = ({ item }) => {
       }
     } else if (id == "Configuration1") {
       if (!config1.classList.contains("Active")) {
+        setPort(1)
+        updateAll(1)
         config1.classList.add("Active");
         setPage("configuration1-container");
         results1.classList.remove("Active");
@@ -37,6 +45,8 @@ const NavItem = ({ item }) => {
       }
     } else {
       if (!results1.classList.contains("Active")) {
+        setPort(1)
+        updateAll(1)
         results1.classList.add("Active");
         setPage("results1-container");
         config1.classList.remove("Active");

@@ -6,55 +6,28 @@ import "./GenerationForm.css";
 import ModalContext from "../ModalContext.js";
 
 const GenerationForm = (props) => {
-  const port = props.keyProp;
-  const [testType, setType] = useState("Generation")
-  const [packetCount, setPacketCount] = useState("");
-  const [burstLength, setBurstLength] = useState("");
-  const [speed, setSpeed] = useState("1G");
-  const [mode, setMode] = useState("Continuous");
-  const [IPG, setIPG] = useState("0");
-  const [IBG, setIBG] = useState("0");
-  const [ISG, setISG] = useState("0");
-
-  const [mac, macEn] = useState(true);
-  const [macDa, setMacDa] = useState("");
-  const [macSa, setMacSa] = useState("");
-  const [vlan, setVlan] = useState("0x8100");
-  const [vlanEn, setVlanEn] = useState(false);
-  const [ethType, setEthType] = useState("0x0800");
-
-  const [ipv4, ipv4En] = useState(false);
-  const [version, setVersion] = useState("0x45");
-  const [dscp, setDscp] = useState("0x00");
-  const [identification, setIdentification] = useState("0x0000");
-  const [flags, setFlags] = useState("0x4000");
-  const [timetolive, setTimetolive] = useState("0x80");
-  const [protocol, setProtocol] = useState("0x11");
-  const [ipv4Da, setIpv4Da] = useState("");
-  const [ipv4Sa, setIpv4Sa] = useState("");
-  const [ipv4Length, setIpv4Length] = useState(0);
-
-  const [udp, udpEn] = useState(false);
-  const [udpDa, setUdpDa] = useState("");
-  const [udpSa, setUdpSa] = useState("");
-  const [udpLength, setUdpLength] = useState(0);
-
-  const [payload, setPayload] = useState("None");
-  const [payloadLength, setPayloadLength] = useState("");
-  const [payloadPattern, setPayloadPattern] = useState("");
-
-  const oldPayloadLength = useRef(0);
-
-  const { setModalOpen } = useContext(ModalContext);
-  const { setModal2Open } = useContext(ModalContext);
-
-  const { rowsData } = useContext(ModalContext)
-  const { rowsData2 } = useContext(ModalContext)
-  const { selectedRow } = useContext(ModalContext)
-  const { selectedRow2 } = useContext(ModalContext)
-
-  const [streamName, setStreamName] = useState(" ")
-  const [streamName2, setStreamName2] = useState(" ")
+  const formPort = props.keyProp;
+  const { modalOpen,
+    setModalOpen, port, setPort,
+    modal2Open, streamName, updateStreamName,
+    setModal2Open,
+    rowsData,
+    setRowsData,
+    rowsData2,
+    setRowsData2,
+    selectedRow,
+    setSelectedRow,
+    selectedRow2,
+    setSelectedRow2,
+    selectedRows,
+    setSelectedRows,
+    updateSelectedRows,
+    containsIndex, updateType, BERTPattern, updateBERTPattern,
+    testType, mode, updateMode, packetCount, updatePacketCount, burstLength, updateBurstLength
+    , speed, updateSpeed, IPG, updateIPG, IBG, updateIBG, ISG, updateISG, ISGUnit, updateISGUnit, IBGUnit, updateIBGUnit, IPGUnit, updateIPGUnit,
+    macDa, updateMacDa, macSa, updateMacSa, vlan, updateVlan, vlanEn, updateVlanEn,
+    ethType, updateEthType, ipv4, updateIpv4, ipv4Da, updateIpv4Da, ipv4Sa, updateIpv4Sa, version, updateVersion, dscp, updateDscp, identification, updateIdentification, flags, updateFlags,
+    timetolive, updateTimetolive, protocol, updateProtocol, ipv4Length, udp, updateUdp, udpDa, updateUdpDa, udpSa, updateUdpSa, udpLength, payload, updatePayload, payloadLength, updatePayloadLength, payloadPattern, updatePayloadPattern, calculateIpv4Length, calculateUdpLength, updateLengths } = useContext(ModalContext)
 
   const updateModalOpen = (e, bool, num) => {
     e.preventDefault();
@@ -73,47 +46,6 @@ const GenerationForm = (props) => {
     }
   };
 
-  const calculateIpv4Length = (bool, val) => {
-    if (bool) {
-      setIpv4Length(ipv4Length + val);
-    } else {
-      setIpv4Length(ipv4Length - val);
-    }
-  };
-  const calculateUdpLength = (bool, val) => {
-    if (bool) {
-      setUdpLength(udpLength + val);
-    } else {
-      setUdpLength(udpLength - val);
-    }
-  };
-
-  const calculateLengths = (newVal) => {
-    if (newVal === "") {
-      newVal = "0";
-    }
-    setIpv4Length(ipv4Length + parseInt(newVal) - oldPayloadLength.current);
-    setUdpLength(udpLength + parseInt(newVal) - oldPayloadLength.current);
-  };
-
-  const [timer, setTimer] = useState(null);
-  const updateLengths = (e) => {
-    const newVal = e.currentTarget.value;
-    if (payloadLength === "") {
-      oldPayloadLength.current = 0;
-    } else {
-      oldPayloadLength.current = parseInt(payloadLength);
-    }
-
-    setPayloadLength(e.currentTarget.value);
-    clearTimeout(timer);
-
-    const newTimer = setTimeout(() => {
-      calculateLengths(newVal);
-    }, 1);
-
-    setTimer(newTimer);
-  };
 
   const sendData = (form) => {
     let output_console = document.querySelector(".console");
@@ -168,54 +100,6 @@ const GenerationForm = (props) => {
     sendData(generationForm);
   };
 
-  const updateName = (e, port) => {
-    if (port == 0) {
-      if (rowsData[selectedRow]) {
-        rowsData[selectedRow].name = e.currentTarget.value;
-        setStreamName(e.currentTarget.value)
-      }
-    } else {
-    if (rowsData2[selectedRow2]) {
-      rowsData2[selectedRow2].name = e.currentTarget.value;
-      setStreamName2(e.currentTarget.value)
-      }
-    }
-  }
-
-  const determineStreamName = (port) => {
-    if (port == 0) {
-      if (rowsData[selectedRow]) {
-        return rowsData[selectedRow].name
-
-      }
-    } else {
-      if (rowsData2[selectedRow2]) {
-        return rowsData2[selectedRow2].name
-      }
-    }
-    return " "
-  }
-
-  const updateMode = (mode, port) => {
-    if (port == 0) {
-      rowsData[selectedRow].mode = mode
-    }
-    else {
-      rowsData2[selectedRow2].mode = mode
-    }
-    setMode(mode)
-  }
-
-  const updateType = (type, port) => {
-    if (port == 0) {
-      rowsData[selectedRow].type = type
-    }
-    else {
-      rowsData2[selectedRow2].type = type
-    }
-    setType(type)
-  }
-  
   return (
     <div className="inputs">
       <header className="stream-properties"> Stream Properties </header>
@@ -229,8 +113,8 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio1"
                 value="Continuous"
-                checked={mode === "Continuous"}
-                onChange={(e) => updateMode(e.currentTarget.value, port)}
+                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Continuous" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Continuous": true}
+                onChange={(e) => updateMode(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio1" id="radio1">
                 Continuous
@@ -242,7 +126,8 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio2"
                 value="Fixed"
-                onChange={(e) => updateMode(e.currentTarget.value, port)}
+                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Fixed" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Fixed": false}
+                onChange={(e) => updateMode(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio2" id="radio2">
                 Fixed
@@ -254,7 +139,8 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio3"
                 value="Fixed-Burst"
-                onChange={(e) => updateMode(e.currentTarget.value, port)}
+                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Fixed-Burst" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Fixed-Burst": false}
+                onChange={(e) => updateMode(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio3" id="radio3">
                 Fixed-Burst
@@ -266,7 +152,8 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio4"
                 value="Continuous-Burst"
-                onChange={(e) => updateMode(e.currentTarget.value, port)}
+                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Continuous-Burst" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Continuous-Burst": false}
+                onChange={(e) => updateMode(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio4" id="radio4">
                 Continuous-Burst
@@ -280,13 +167,9 @@ const GenerationForm = (props) => {
         <input
           type="text"
           required
-          value={
-            mode === "Continuous" || mode === "Continuous-Burst"
-              ? "N/A"
-              : packetCount
-          }
+          value={ mode == "Continuous" || mode == "Continuous-Burst" ? "N/A" : packetCount }
           disabled={mode === "Continuous" || mode === "Continuous-Burst"}
-          onChange={(e) => setPacketCount(e.target.value)}
+          onChange={(e) => updatePacketCount(e.target.value, formPort)}
         />
         <label>Packets per Burst:</label>
         <input
@@ -297,28 +180,23 @@ const GenerationForm = (props) => {
               : "N/A"
           }
           disabled={mode === "Continuous" || mode === "Fixed"}
-          onChange={(e) => setBurstLength(e.target.value)}
+          onChange={(e) => updateBurstLength(e.target.value, formPort)}
         ></input>
-        <label>Transmission Speed:</label>
-        <select value={speed} onChange={(e) => setSpeed(e.target.value)}>
-          <option value="100M" disabled="disabled">
-            100 MB/s
-          </option>
-          <option value="1G">1 GB/s</option>
-          <option value="10G" disabled="disabled">
-            10 GB/s
-          </option>
-          <option value="100G" disabled="disabled">
-            100 GB/s
-          </option>
-        </select>
+        <label>Transmission Speed (Mb/s):</label>
+        <input
+          required
+          value={speed}
+          //disabled={mode === "Continuous" || mode === "Fixed"}
+          placeholder = "1.0 - 1000.0 Mb/s (or %)"
+          onChange={(e) => updateSpeed(e.target.value, formPort)}
+        ></input>
       </form>
       <form id="gen-form-3">
         <div className="gen-form-3-content">
           <button
             className="openModalBtn"
             onClick={(e) => {
-              updateModalOpen(e, true, port);
+              updateModalOpen(e, true, formPort);
             }}
           >
             Stream Manager
@@ -327,8 +205,8 @@ const GenerationForm = (props) => {
         <input
           type="text"
           // required
-          value={determineStreamName(port) }
-          onChange={(e) => updateName(e, port)}
+          value={streamName}
+          onChange={(e) => updateStreamName(e.target.value, formPort)}
         />
         {/* <label for="Type">Type:</label>
         <select>
@@ -349,7 +227,7 @@ const GenerationForm = (props) => {
                 id="radio1t"
                 value="Generation"
                 checked={testType === "Generation"}
-                onChange={(e) => updateType(e.currentTarget.value, port)}
+                onChange={(e) => updateType(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio1t" id="radio1t">
                 Generation
@@ -362,7 +240,7 @@ const GenerationForm = (props) => {
                 id="radio2t"
                 value="Verification"
                 checked={testType === "Verification"}
-                onChange={(e) => updateType(e.currentTarget.value, port)}
+                onChange={(e) => updateType(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio2t" id="radio2t">
                 Verification
@@ -385,9 +263,27 @@ const GenerationForm = (props) => {
               <input
                 type="text"
                 value={ISG}
-                onChange={(e) => setISG(e.target.value)}
+                onChange={(e) => updateISG(e.target.value, formPort)}
               />
-              <span className="ms">ms</span>
+              <span className="ms">
+                <select value={ISGUnit} onChange={(e) => updateISGUnit(e.target.value, formPort)}>
+          <option value="ms">
+            ms
+          </option>
+          <option value="us">
+            μs
+          </option>
+          <option value="ns">
+            ns
+          </option>
+          <option value="ps">
+            ps
+          </option>
+          <option value="bit">
+            bit times
+          </option>
+        </select>
+              </span>
             </div>
           </div>
           <div className="interpacket">
@@ -396,9 +292,27 @@ const GenerationForm = (props) => {
               <input
                 type="text"
                 value={IPG}
-                onChange={(e) => setIPG(e.target.value)}
+                onChange={(e) => updateIPG(e.target.value, formPort)}
               />
-              <span className="ms">ms</span>
+              <span className="ms">
+                <select value={IPGUnit} onChange={(e) => updateIPGUnit(e.target.value, formPort)}>
+          <option value="ms">
+            ms
+          </option>
+          <option value="us">
+            μs
+          </option>
+          <option value="ns">
+            ns
+          </option>
+          <option value="ps">
+            ps
+          </option>
+          <option value="bit">
+            bit times
+          </option>
+        </select>
+              </span>
             </div>
           </div>
           <div className="interburst">
@@ -408,9 +322,28 @@ const GenerationForm = (props) => {
                 type="text"
                 value={mode === "Continuous" || mode === "Fixed" ? "0" : IBG}
                 disabled={mode === "Continuous" || mode === "Fixed"}
-                onChange={(e) => setIBG(e.target.value)}
+                onChange={(e) => updateIBG(e.target.value, formPort)}
               />
-              <span className="ms">ms</span>
+              <span className="ms">
+                <select value={IBGUnit}                 disabled={mode === "Continuous" || mode === "Fixed"}
+onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
+          <option value="ms">
+            ms
+          </option>
+          <option value="us">
+            μs
+          </option>
+          <option value="ns">
+            ns
+          </option>
+          <option value="ps">
+            ps
+          </option>
+          <option value="bit">
+            bit times
+          </option>
+        </select>
+              </span>
             </div>
           </div>
         </div>
@@ -430,50 +363,45 @@ const GenerationForm = (props) => {
         </div>
         <div class="inner-group">
           <label for="mac-da">Destination Address</label>
-          {/* <input type="checkbox" id="mac-da" disabled={mac === false} onChange = {(e) => setMacDaEn(e.currentTarget.checked)}
-          checked = {mac === false ? false : macDaEn}/> */}
+
         </div>
         <input
           type="text"
           // required
           value={macDa}
-          onChange={(e) => setMacDa(e.target.value)}
+          onChange={(e) => updateMacDa(e.target.value, formPort)}
         />
         <div class="inner-group">
-          <label for="mac-sa">Source Address</label>
-          {/* <input type="checkbox" id="mac-sa" disabled={mac === false} onChange = {(e) => setMacSaEn(e.currentTarget.checked)}
-          checked = {mac === false ? false : macSaEn}/>        */}
+
         </div>
         <input
           // required
           // value={burstLength}
           value={macSa}
-          onChange={(e) => setMacSa(e.target.value)}
+          onChange={(e) => updateMacSa(e.target.value, formPort)}
         ></input>
         <div class="inner-group">
           <label for="vlan">VLAN-Tag</label>
           <input
             type="checkbox"
             id="vlan"
-            disabled={mac === false}
-            onChange={(e) => setVlanEn(e.currentTarget.checked)}
-            checked={mac === false ? false : vlanEn}
+            onChange={(e) => updateVlanEn(e.currentTarget.checked, formPort)}
+            checked = {vlanEn}
           />
         </div>
         <input
-          disabled={vlanEn === false || mac === false}
-          value={vlanEn === false || mac === false ? "N/A" : vlan}
-          onChange={(e) => setVlan(e.currentTarget.value)}
+          disabled={vlanEn === false}
+          value={vlanEn === false ? "N/A" : vlan}
+          onChange={(e) => updateVlan(e.currentTarget.value, formPort)}
         ></input>
 
         <div class="inner-group">
           <label for="ethertype">Ethertype</label>
-          {/* <input type="checkbox" id="ethertype" disabled={mac === false} onChange = {(e) => setEthTypeEn(e.currentTarget.checked)}
-          checked = {mac === false ? false : ethTypeEn}/>  */}
+
         </div>
         <input
           value={ethType}
-          onChange={(e) => setEthType(e.currentTarget.value)}
+          onChange={(e) => updateEthType(e.currentTarget.value, formPort)}
         ></input>
       </form>
       <form id="gen-form-5">
@@ -484,7 +412,7 @@ const GenerationForm = (props) => {
             id="ipv4-enable"
             checked={ipv4}
             onChange={(e) => [
-              ipv4En(e.target.checked),
+              updateIpv4(e.target.checked, formPort),
               calculateIpv4Length(e.target.checked, 20),
             ]}
           />
@@ -492,61 +420,56 @@ const GenerationForm = (props) => {
         <div>
           <div class="inner-group">
             <label for="version">Version & IHL</label>
-            {/* <input type="checkbox" id="version" disabled={ipv4 === false} onChange = {(e) => [setVersionEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 1)]}
-          checked = {ipv4 === false ? false : versionEn}/>            */}
+   
           </div>
           <input
             disabled={ipv4 === false}
             value={ipv4 === false ? "N/A" : version}
-            onChange={(e) => setVersion(e.currentTarget.value)}
+            onChange={(e) => updateVersion(e.currentTarget.value, formPort)}
           ></input>
         </div>
         <div>
           <div class="inner-group">
             <label for="dscp">DSCP & ECN</label>
-            {/* <input type="checkbox" id="dscp" disabled={ipv4 === false} onChange = {(e) => [setDscpEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 1)]}
-          checked = {ipv4 === false ? false : dscpEn}/> */}
+     
           </div>
           <input
             disabled={ipv4 === false}
             value={ipv4 === false ? "N/A" : dscp}
-            onChange={(e) => setDscp(e.currentTarget.value)}
+            onChange={(e) => updateDscp(e.currentTarget.value, formPort)}
           ></input>
         </div>
         <div>
           <div class="inner-group">
             <label for="identification">Identification</label>
-            {/* <input type="checkbox" id="identification" disabled={ipv4 === false} onChange = {(e) => [setIdentificationEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 2)]}
-          checked = {ipv4 === false ? false : identificationEn}/> */}
+
           </div>
           <input
             disabled={ipv4 === false}
             value={ipv4 === false ? "N/A" : identification}
-            onChange={(e) => setIdentification(e.currentTarget.value)}
+            onChange={(e) => updateIdentification(e.currentTarget.value, formPort)}
           ></input>
         </div>
         <div>
           <div class="inner-group">
             <label for="flags">Flags & Fragment Offset</label>
-            {/* <input type="checkbox" id="flags" disabled={ipv4 === false} onChange = {(e) => [setFlagsEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 2)]}
-          checked = {ipv4 === false ? false : flagsEn}/>           */}
+
           </div>
           <input
             disabled={ipv4 === false}
             value={ipv4 === false ? "N/A" : flags}
-            onChange={(e) => setFlags(e.currentTarget.value)}
+            onChange={(e) => updateFlags(e.currentTarget.value, formPort)}
           ></input>
         </div>
         <div>
           <div class="inner-group">
             <label for="timetolive">Time to Live</label>
-            {/* <input type="checkbox" id="timetolive" disabled={ipv4 === false} onChange = {(e) => [setTimetoliveEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 1)]}
-          checked = {ipv4 === false ? false : timetoliveEn}/> */}
+  
           </div>
           <input
             disabled={ipv4 === false}
             value={ipv4 === false ? "N/A" : timetolive}
-            onChange={(e) => setTimetolive(e.currentTarget.value)}
+            onChange={(e) => updateTimetolive(e.currentTarget.value, formPort)}
           ></input>
         </div>
         <div>
@@ -555,44 +478,40 @@ const GenerationForm = (props) => {
         <div>
           <div class="inner-group">
             <label for="protocol">Protocol</label>
-            {/* <input type="checkbox" id="protocol" disabled={ipv4 === false} onChange = {(e) => [setProtocolEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 1)]}
-          checked = {ipv4 === false ? false : protocolEn}/> */}
+   
           </div>
           <input
             disabled={ipv4 === false}
             value={ipv4 === false ? "N/A" : protocol}
-            onChange={(e) => setProtocol(e.currentTarget.value)}
+            onChange={(e) => updateProtocol(e.currentTarget.value, formPort)}
           ></input>
         </div>
         <div>
           <div class="inner-group">
             <label for="da">Destination Address</label>
-            {/* <input type="checkbox" id="da" disabled={ipv4 === false} onChange = {(e) => [setIpv4DaEn(e.currentTarget.checked), , calculateIpv4Length(e.currentTarget.checked, 4)]}
-          checked = {ipv4 === false ? false : ipv4DaEn}/> */}
+
           </div>
           <input
             disabled={ipv4 === false}
             value={ipv4 === false ? "N/A" : ipv4Da}
-            onChange={(e) => setIpv4Da(e.currentTarget.value)}
+            onChange={(e) => updateIpv4Da(e.currentTarget.value, formPort)}
           ></input>
         </div>
         <div>
           <div class="inner-group">
             <label for="sa">Source Address</label>
-            {/* <input type="checkbox" id="sa" disabled={ipv4 === false} onChange = {(e) => [setIpv4SaEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 4)]}
-          checked = {ipv4 === false ? false : ipv4SaEn}/> */}
+  
           </div>
           <input
             disabled={ipv4 === false}
             value={ipv4 === false ? "N/A" : ipv4Sa}
-            onChange={(e) => setIpv4Sa(e.currentTarget.value)}
+            onChange={(e) => updateIpv4Sa(e.currentTarget.value, formPort)}
           ></input>
         </div>
         <div>
           <div class="inner-group">
             <label for="ip-length">Length</label>
-            {/* <input type="checkbox" id="ip-length" disabled={ipv4 === false} onChange = {(e) => [setIpv4LengthEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 2)]}
-          checked = {ipv4 === false ? false : ipv4LengthEn}/>   */}
+
           </div>
           <input
             disabled={true}
@@ -602,8 +521,7 @@ const GenerationForm = (props) => {
         <div>
           <div class="inner-group">
             <label for="checksum">Checksum</label>
-            {/* <input type="checkbox" id="checksum" disabled={ipv4 === false} onChange = {(e) => [setIpv4ChecksumEn(e.currentTarget.checked), calculateIpv4Length(e.currentTarget.checked, 2)]}
-            checked =  {ipv4 === false ? false : ipv4ChecksumEn}/> */}
+
           </div>
           <input disabled={true} value={"Auto-calculated"}></input>
         </div>
@@ -617,7 +535,7 @@ const GenerationForm = (props) => {
             disabled={ipv4 === false}
             checked={ipv4 === false ? false : udp}
             onChange={(e) => [
-              udpEn(e.target.checked),
+              updateUdp(e.target.checked, formPort),
               calculateIpv4Length(e.target.checked, 8),
               calculateUdpLength(e.target.checked, 8),
             ]}
@@ -625,29 +543,26 @@ const GenerationForm = (props) => {
         </div>
         <div class="inner-group">
           <label for="udp-da">Destination Address</label>
-          {/* <input type="checkbox" id="udp-da" disabled={udp === false} onChange = {(e) => [setUdpDaEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
-            checked =  {udp === false ? false : udpDaEn}/> */}
+
         </div>
         <input
           disabled={udp === false}
           value={udp === false ? "N/A" : udpDa}
-          onChange={(e) => setUdpDa(e.currentTarget.value)}
+          onChange={(e) => updateUdpDa(e.currentTarget.value, formPort)}
         ></input>
         <div class="inner-group">
           <label for="udp-sa">Source Address</label>
-          {/* <input type="checkbox" id="udp-sa" disabled={udp === false} onChange = {(e) => [setUdpSaEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
-            checked =  {udp === false ? false : udpSaEn}/> */}
+   
         </div>
         <input
           disabled={udp === false}
           value={udp === false ? "N/A" : udpSa}
-          onChange={(e) => setUdpSa(e.currentTarget.value)}
+          onChange={(e) => updateUdpSa(e.currentTarget.value, formPort)}
         ></input>
         <div>
           <div class="inner-group">
             <label for="udp-length">Length</label>
-            {/* <input type="checkbox" id="udp-length" disabled={udp === false} onChange = {(e) => [setUdpLengthEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
-          checked = {udp === false ? false : udpLengthEn}/> */}
+
           </div>
           <input
             disabled={true}
@@ -657,23 +572,17 @@ const GenerationForm = (props) => {
         <div>
           <div class="inner-group">
             <label for="udp-checksum">Checksum</label>
-            {/* <input type="checkbox" id="udp-checksum" disabled={udp === false} onChange = {(e) => [setUdpChecksumEn(e.currentTarget.checked), , calculateUdpLength(e.currentTarget.checked, 2),calculateIpv4Length(e.currentTarget.checked, 2)]}
-            checked =  {udp === false ? false : udpChecksumEn}/> */}
+
           </div>
           <input disabled={true} value={"Auto-calculated"}></input>
         </div>
       </form>
       <form id="gen-form-7">
         <header>Payload</header>
-        {/* <div className="BERT">
-          <div class="inner-group-bert">
-            <label for="bert">BERT</label>
-            <input type="checkbox" id="bert" onChange={(e) => setBert(e.target.checked)}/>
-          </div>
-          </div> */}
+ 
         <div>
-          <label>Type:</label>
-          <select value={payload} onChange={(e) => setPayload(e.target.value)}>
+          <label>Type</label>
+          <select value={payload} onChange={(e) => updatePayload(e.target.value, formPort)}>
             <option value="None">None</option>
             <option value="Increment">Increment Byte</option>
             <option value="Decrement">Decrement Byte</option>
@@ -684,31 +593,62 @@ const GenerationForm = (props) => {
         </div>
         <div class="inner-group">
           <label for="payload-length">Length</label>
-          {/* <input type="checkbox" id="udp-da" disabled={udp === false} onChange = {(e) => [setUdpDaEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
-            checked =  {udp === false ? false : udpDaEn}/> */}
         </div>
         <input
           disabled={payload === "None"}
           value={payload === "None" ? "N/A" : payloadLength}
-          placeholder="0 - 1500 Bytes"
+          placeholder="0 - 9000 Bytes"
           type="number"
-          onChange={(e) => updateLengths(e)}
+          onChange={(e) => [updatePayloadLength(e.currentTarget.value, formPort), updateLengths(e)]}
         ></input>
         <div
           style={{
-            visibility: payload === "Fixed" ? "visible" : "hidden",
+            display: payload === "Fixed"? "block" : "none",
           }}
         >
           <div class="inner-group">
             <label for="payload-pattern">Pattern</label>
-            {/* <input type="checkbox" id="udp-da" disabled={udp === false} onChange = {(e) => [setUdpDaEn(e.currentTarget.checked), calculateUdpLength(e.currentTarget.checked, 2), calculateIpv4Length(e.currentTarget.checked, 2)]}
-            checked =  {udp === false ? false : udpDaEn}/> */}
           </div>
           <input
             value={payloadPattern}
             placeholder="Enter 8 byte pattern"
-            onChange={(e) => setPayloadPattern(e.currentTarget.value)}
+            onChange={(e) => updatePayloadPattern(e.currentTarget.value, formPort)}
           ></input>
+        </div>
+        <div
+          style={{
+            visibility: payload === "BERT"? "visible" : "hidden",
+          }}
+        >
+          <div class="inner-group">
+            <label for="BERT-pattern">Pattern</label>
+          </div>
+          <select value={BERTPattern} onChange={(e) => updateBERTPattern(e.target.value, formPort)}>
+          <option value="0">
+            PRBS3
+          </option>
+          <option value="1">
+          PRBS9
+          </option>
+          <option value="2">
+          PRBS11
+          </option>
+          <option value="3">
+          PRBS15
+          </option>
+          <option value="4">
+          PRBS23
+          </option>
+          <option value="5">
+          PRBS31
+          </option>
+          <option value="8">
+            Ones
+          </option>
+          <option value="9">
+            Zeroes
+          </option>
+        </select>
         </div>
       </form>
     </div>

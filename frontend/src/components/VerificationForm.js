@@ -426,7 +426,7 @@ const VerificationForm = (props) => {
         ></input>
         <div class="inner-group">
           <label for="vlan">VLAN-Tag</label>
-          <input type="checkbox" id="vlan" disabled={mac === false} onChange = {(e) => setVlanEn(e.currentTarget.checked)}
+          <input type="checkbox" id="vlan" onChange = {(e) => setVlanEn(e.currentTarget.checked)}
           checked = {mac === false ? false : vlanEn}/>
         </div>
         <input disabled={vlanEn === false || mac === false} value = {vlanEn === false || mac === false ? "N/A" : vlan}

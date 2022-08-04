@@ -55,19 +55,19 @@
     transform: scale(1.5);
 }
 
-.radio-sectiont{
+.configuration-container .radio-sectiont{
     display: flex;
     align-items: center;
     justify-content: left;
 }
-.radio-itemt [type="radio"]{
+.configuration-container .radio-itemt [type="radio"]{
     display: none;
 }
 
-.radio-itemt + .radio-itemt{
+.configuration-container .radio-itemt + .configuration-container .radio-itemt{
     margin-top: 2px;
 }
-.radio-itemt label{
+.configuration-container .radio-itemt label{
     display: block;
     padding: 10px 50px;
     background: white;
@@ -76,21 +76,21 @@
     font-weight: 400;
     position: relative;
 }
-.radio-itemt label:after,
-.radio-itemt label:before{
+.configuration-container .radio-itemt label:after,
+.configuration-container .radio-itemt label:before{
     content: "";
     position: absolute;
     border-radius: 50%;
 }
 
-.radio-itemt label:after{
+.configuration-container .radio-itemt label:after{
     height: 20px;
     width: 20px;
     border:2px solid #524eee;
     left: 10px;
     top: calc(50% - 12px);
 }
-.radio-itemt label:before{
+.configuration-container .radio-itemt label:before{
     background: #524eee;
     height: 10px;
     width: 10px;
@@ -102,7 +102,7 @@
     visibility: hidden;
 }
 
-.radio-itemt [type="radio"]:checked ~ label:before{
+.configuration-container .radio-itemt [type="radio"]:checked ~ label:before{
     opacity: 1;
     visibility: visible;
     transform: scale(1.5);
@@ -170,6 +170,69 @@
     visibility: visible;
     transform: scale(1.5);
 }
+
+.configuration1-container .radio-sectiont{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+}
+.configuration1-container .radio-itemt [type="radio"]{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.configuration1-container .radio-itemt {
+   display: flex;
+   justify-content: left;
+   align-items: center;
+}
+.configuration1-container .radio-itemt label{
+    display: flex;
+    padding: 10px 50px;
+    justify-content: center;
+    background: white;
+    cursor: pointer;
+    pointer-events: none;
+    font-size: 14px;
+    font-weight: 400;
+    position: relative;
+}
+.configuration1-container .radio-itemt label:after,
+.configuration1-container .radio-itemt label:before{
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+}
+
+.configuration1-container .radio-itemt label:after{
+    height: 20px;
+    width: 20px;
+    border:2px solid #524eee;
+    left: 10px;
+    top: calc(50% - 12px);
+}
+.configuration1-container .radio-itemt label:before{
+    background: #524eee;
+    height: 10px;
+    width: 10px;
+    left: 17px;
+    top: calc(50% - 5px);
+    transform: scale(1);
+    transition: .3s ease-in-out 0s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.configuration1-container .radio-itemt [type="radio"]:checked ~ label:before{
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.5);
+}
+
 
 
 #save-button {
@@ -496,15 +559,22 @@
 
 .ms {
     font-weight: 200;
-    font-size: 14px
+    font-size: 14px;
+    width: 50px;
 }
+.ms select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+  }
 
 .ipbg {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 3px
+    gap: 2px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");

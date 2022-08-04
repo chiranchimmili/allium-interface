@@ -5,14 +5,14 @@ const ModalRow = ({rowsData2, rowsData, handleChange, modalNum, selectedRow, set
     if (modalNum == 0) {
     return(
         rowsData.map((data, index)=>{
-            const {name, type, mode} = data;
+            const {streamName, type, mode} = data;
             return(
                 <tr key={index}>
                     <td>
                         <input type="checkbox" value = {index} onChange={(e) => {setSelectedRow(e.currentTarget.value)}}
                         checked = {selectedRow == index}></input>
                     </td>
-                <td> {name}
+                <td> {streamName}
                 </td>
                 <td> {type} </td>
                 <td> {mode} </td>
@@ -23,14 +23,14 @@ const ModalRow = ({rowsData2, rowsData, handleChange, modalNum, selectedRow, set
     } else {
         return(
             rowsData2.map((data, index)=>{
-                const {name, type, mode} = data;
+                const {streamName, type, mode} = data;
                 return(
                     <tr key={index} className = "tableRowElement">
                         <td>
                         <input type="checkbox" value = {index} onChange={(e) => {setSelectedRow2(e.currentTarget.value)}}
                         checked = {selectedRow2 == index}></input>
                         </td>
-                    <td> {name}
+                    <td> {streamName}
                     </td>
                     <td> {type} </td>
                     <td> {mode} </td>
