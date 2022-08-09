@@ -14,17 +14,17 @@ const MainModal = ({ setOpenModal }) => {
     containsIndex,
   } = useContext(ModalContext);
 
-  const startTests = (data2) => {
+  const startTests = (indices, rows) => {
     let output_console = document.querySelector(".console");
     axios
-      .post("/start", data2)
+      .post("/start", [indices, rows])
       .then(function (response) {})
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  const handleStartTests = (e, data) => {
+  const handleStartTests = (e, indices, rows) => {
     e.preventDefault();
     console.log("eeee");
     let output_console = document.querySelector(".console");
@@ -43,7 +43,7 @@ const MainModal = ({ setOpenModal }) => {
     output_console.scrollTop = output_console.scrollHeight;
     setOpenModal(false);
 
-    startTests(data);
+    startTests(indices, rows);
   };
 
   return (
@@ -98,7 +98,7 @@ const MainModal = ({ setOpenModal }) => {
         <div className="main-footer">
           <button
             onClick={(e) => {
-              handleStartTests(e, selectedRows);
+              handleStartTests(e, selectedRows, [...rowsData, ...rowsData2]);
             }}
           >
             {" "}

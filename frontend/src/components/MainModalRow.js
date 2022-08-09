@@ -8,7 +8,8 @@ const MainModalRow = ({rowsData2, rowsData, selectedRows, updateSelectedRows, co
             return(
                 <tr key={index}>
                     <td>
-                        <input type="checkbox" value = {index} onChange={(e) => {updateSelectedRows(e.currentTarget.value, e.currentTarget.checked)}}
+                        <input type="checkbox" value = {index} checked = {selectedRows.includes(index.toString())}
+                        onChange={(e) => {updateSelectedRows(e.currentTarget.value, e.currentTarget.checked)}}
                          ></input>
                     </td>
                 <td> {index} </td>
