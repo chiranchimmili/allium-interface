@@ -2,6 +2,11 @@ import { createContext, useRef, useState } from "react";
 
 const ModalContext = createContext();
 
+/* Sorry but ports are hardcoded, this changes a LOT of stuff, so if someone is working on this,
+   good luck.
+*/
+
+
 export function ModalProvider({ children }) {
   const [port, setPort] = useState(0)
   const [streamName, setStreamName] = useState("")

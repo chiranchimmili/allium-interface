@@ -16,8 +16,6 @@ def startTests():
     return "Tests Started"
 
 
-
-
 def writeToFile(json_test):
     json_object = json.dumps(json_test[1][0], indent=1)
     with open("test.json", "w") as outfile:

@@ -4,7 +4,6 @@ import "./GenerationForm.js";
 import GenerationForm from "./GenerationForm.js";
 import TabContext from "../TabContext";
 import { useContext } from "react";
-import VerificationForm from "./VerificationForm";
 import GenerationResults from "./GenerationResults"
 import ModalContext from "../ModalContext";
 import Modal from "./Modal";
@@ -99,7 +98,7 @@ const Tabs = () => {
               toggleState === 2 ? "content active-content" : "content"
             }
           >
-            <VerificationForm key={0} keyProp={0}></VerificationForm>
+            {/* <VerificationForm key={0} keyProp={0}></VerificationForm> */}
             {modalOpen === "modalOpen" && <Modal key = {0} modalNum = {0}/>}
           </div>
         </div>
@@ -139,7 +138,7 @@ const Tabs = () => {
               toggleState1 === 4 ? "content1 active-content1" : "content1"
             }
           >
-            <VerificationForm key={1} keyProp={1}></VerificationForm>
+            {/* <VerificationForm key={1} keyProp={1}></VerificationForm> */}
             {modal2Open === "modal2Open" && <Modal key = {1} modalNum = {1}/>}
           </div>
         </div>

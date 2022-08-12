@@ -5,24 +5,15 @@ import "./Form.css";
 import "./GenerationForm.css";
 import ModalContext from "../ModalContext.js";
 
+
+/* This is the configuration form, where they user inputs all of the configuration variables.
+*/
 const GenerationForm = (props) => {
   const formPort = props.keyProp;
   const { modalOpen,
     setModalOpen, port, setPort,
-    modal2Open, streamName, updateStreamName,
-    setModal2Open,
-    rowsData,
-    setRowsData,
-    rowsData2,
-    setRowsData2,
-    selectedRow,
-    setSelectedRow,
-    selectedRow2,
-    setSelectedRow2,
-    selectedRows,
-    setSelectedRows,
-    updateSelectedRows,
-    containsIndex, updateType, BERTPattern, updateBERTPattern,
+    modal2Open, streamName, updateStreamName, setModal2Open, rowsData, setRowsData, rowsData2, setRowsData2, selectedRow, setSelectedRow, selectedRow2, setSelectedRow2,
+    selectedRows, setSelectedRows, updateSelectedRows, containsIndex, updateType, BERTPattern, updateBERTPattern,
     testType, mode, updateMode, packetCount, updatePacketCount, burstLength, updateBurstLength
     , speed, updateSpeed, IPG, updateIPG, IBG, updateIBG, ISG, updateISG, ISGUnit, updateISGUnit, IBGUnit, updateIBGUnit, IPGUnit, updateIPGUnit,
     macDa, updateMacDa, macSa, updateMacSa, vlan, updateVlan, vlanEn, updateVlanEn,
@@ -47,6 +38,10 @@ const GenerationForm = (props) => {
   };
 
 
+  /*
+    "Saves" data when save button is pressedbut is unnecessary as data is automatically saved.
+     Logs message on console.
+  */
   const sendData = (form) => {
     let output_console = document.querySelector(".console");
     axios
@@ -86,6 +81,7 @@ const GenerationForm = (props) => {
     row.appendChild(desc);
     row.style.color = "#09aad3";
     output_console.appendChild(row);
+
     const generationForm = {
       port: port,
       type: testType,
@@ -113,7 +109,7 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio1"
                 value="Continuous"
-                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Continuous" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Continuous": true}
+                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Continuous" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Continuous" : true}
                 onChange={(e) => updateMode(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio1" id="radio1">
@@ -126,7 +122,7 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio2"
                 value="Fixed"
-                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Fixed" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Fixed": false}
+                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Fixed" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Fixed" : false}
                 onChange={(e) => updateMode(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio2" id="radio2">
@@ -139,7 +135,7 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio3"
                 value="Fixed-Burst"
-                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Fixed-Burst" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Fixed-Burst": false}
+                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Fixed-Burst" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Fixed-Burst" : false}
                 onChange={(e) => updateMode(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio3" id="radio3">
@@ -152,7 +148,7 @@ const GenerationForm = (props) => {
                 name="radio"
                 id="radio4"
                 value="Continuous-Burst"
-                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Continuous-Burst" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Continuous-Burst": false}
+                checked={port === 0 ? (rowsData[selectedRow] ? rowsData[selectedRow].mode === "Continuous-Burst" : false) : rowsData2[selectedRow2] ? rowsData2[selectedRow2].mode === "Continuous-Burst" : false}
                 onChange={(e) => updateMode(e.currentTarget.value, formPort)}
               />
               <label htmlFor="radio4" id="radio4">
@@ -167,7 +163,7 @@ const GenerationForm = (props) => {
         <input
           type="text"
           required
-          value={ mode == "Continuous" || mode == "Continuous-Burst" ? "N/A" : packetCount }
+          value={mode == "Continuous" || mode == "Continuous-Burst" ? "N/A" : packetCount}
           disabled={mode === "Continuous" || mode === "Continuous-Burst"}
           onChange={(e) => updatePacketCount(e.target.value, formPort)}
         />
@@ -187,7 +183,7 @@ const GenerationForm = (props) => {
           required
           value={speed}
           //disabled={mode === "Continuous" || mode === "Fixed"}
-          placeholder = "1.0 - 1000.0 Mb/s (or %)"
+          placeholder="1.0 - 1000.0 Mb/s (or %)"
           onChange={(e) => updateSpeed(e.target.value, formPort)}
         ></input>
       </form>
@@ -202,13 +198,13 @@ const GenerationForm = (props) => {
             Stream Manager
           </button>
           <label for="name">Name:</label>
-        <input
-          type="text"
-          // required
-          value={streamName}
-          onChange={(e) => updateStreamName(e.target.value, formPort)}
-        />
-        {/* <label for="Type">Type:</label>
+          <input
+            type="text"
+            // required
+            value={streamName}
+            onChange={(e) => updateStreamName(e.target.value, formPort)}
+          />
+          {/* <label for="Type">Type:</label>
         <select>
           <option value="Generation">
             Generation
@@ -216,38 +212,38 @@ const GenerationForm = (props) => {
           <option value="Verification">Verification</option>
           </select> */}
           {/* {modalOpen && <Modal setOpenModal={updateModalOpen} />} */}
-      
-        <label> Test Type: </label>
-        <section className="radio-sectiont">
-          <div className="radio-listt">
-            <div className="radio-itemt">
-              <input
-                type="radio"
-                name="radiot"
-                id="radio1t"
-                value="Generation"
-                checked={testType === "Generation"}
-                onChange={(e) => updateType(e.currentTarget.value, formPort)}
-              />
-              <label htmlFor="radio1t" id="radio1t">
-                Generation
-              </label>
+
+          <label> Test Type: </label>
+          <section className="radio-sectiont">
+            <div className="radio-listt">
+              <div className="radio-itemt">
+                <input
+                  type="radio"
+                  name="radiot"
+                  id="radio1t"
+                  value="Generation"
+                  checked={testType === "Generation"}
+                  onChange={(e) => updateType(e.currentTarget.value, formPort)}
+                />
+                <label htmlFor="radio1t" id="radio1t">
+                  Generation
+                </label>
+              </div>
+              <div className="radio-itemt">
+                <input
+                  type="radio"
+                  name="radiot"
+                  id="radio2t"
+                  value="Verification"
+                  checked={testType === "Verification"}
+                  onChange={(e) => updateType(e.currentTarget.value, formPort)}
+                />
+                <label htmlFor="radio2t" id="radio2t">
+                  Verification
+                </label>
+              </div>
             </div>
-            <div className="radio-itemt">
-              <input
-                type="radio"
-                name="radiot"
-                id="radio2t"
-                value="Verification"
-                checked={testType === "Verification"}
-                onChange={(e) => updateType(e.currentTarget.value, formPort)}
-              />
-              <label htmlFor="radio2t" id="radio2t">
-                Verification
-              </label>
-            </div>
-          </div>
-        </section>
+          </section>
         </div>
       </form>
       <form className="gaps" id="gaps-form">
@@ -267,22 +263,22 @@ const GenerationForm = (props) => {
               />
               <span className="ms">
                 <select value={ISGUnit} onChange={(e) => updateISGUnit(e.target.value, formPort)}>
-          <option value="ms">
-            ms
-          </option>
-          <option value="us">
-            μs
-          </option>
-          <option value="ns">
-            ns
-          </option>
-          <option value="ps">
-            ps
-          </option>
-          <option value="bit">
-            bit times
-          </option>
-        </select>
+                  <option value="ms">
+                    ms
+                  </option>
+                  <option value="us">
+                    μs
+                  </option>
+                  <option value="ns">
+                    ns
+                  </option>
+                  <option value="ps">
+                    ps
+                  </option>
+                  <option value="bit">
+                    bit times
+                  </option>
+                </select>
               </span>
             </div>
           </div>
@@ -296,22 +292,22 @@ const GenerationForm = (props) => {
               />
               <span className="ms">
                 <select value={IPGUnit} onChange={(e) => updateIPGUnit(e.target.value, formPort)}>
-          <option value="ms">
-            ms
-          </option>
-          <option value="us">
-            μs
-          </option>
-          <option value="ns">
-            ns
-          </option>
-          <option value="ps">
-            ps
-          </option>
-          <option value="bit">
-            bit times
-          </option>
-        </select>
+                  <option value="ms">
+                    ms
+                  </option>
+                  <option value="us">
+                    μs
+                  </option>
+                  <option value="ns">
+                    ns
+                  </option>
+                  <option value="ps">
+                    ps
+                  </option>
+                  <option value="bit">
+                    bit times
+                  </option>
+                </select>
               </span>
             </div>
           </div>
@@ -325,24 +321,24 @@ const GenerationForm = (props) => {
                 onChange={(e) => updateIBG(e.target.value, formPort)}
               />
               <span className="ms">
-                <select value={IBGUnit}                 disabled={mode === "Continuous" || mode === "Fixed"}
-onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
-          <option value="ms">
-            ms
-          </option>
-          <option value="us">
-            μs
-          </option>
-          <option value="ns">
-            ns
-          </option>
-          <option value="ps">
-            ps
-          </option>
-          <option value="bit">
-            bit times
-          </option>
-        </select>
+                <select value={IBGUnit} disabled={mode === "Continuous" || mode === "Fixed"}
+                  onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
+                  <option value="ms">
+                    ms
+                  </option>
+                  <option value="us">
+                    μs
+                  </option>
+                  <option value="ns">
+                    ns
+                  </option>
+                  <option value="ps">
+                    ps
+                  </option>
+                  <option value="bit">
+                    bit times
+                  </option>
+                </select>
               </span>
             </div>
           </div>
@@ -386,7 +382,7 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
             type="checkbox"
             id="vlan"
             onChange={(e) => updateVlanEn(e.currentTarget.checked, formPort)}
-            checked = {vlanEn}
+            checked={vlanEn}
           />
         </div>
         <input
@@ -420,7 +416,7 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
         <div>
           <div class="inner-group">
             <label for="version">Version & IHL</label>
-   
+
           </div>
           <input
             disabled={ipv4 === false}
@@ -431,7 +427,7 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
         <div>
           <div class="inner-group">
             <label for="dscp">DSCP & ECN</label>
-     
+
           </div>
           <input
             disabled={ipv4 === false}
@@ -464,7 +460,7 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
         <div>
           <div class="inner-group">
             <label for="timetolive">Time to Live</label>
-  
+
           </div>
           <input
             disabled={ipv4 === false}
@@ -478,7 +474,7 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
         <div>
           <div class="inner-group">
             <label for="protocol">Protocol</label>
-   
+
           </div>
           <input
             disabled={ipv4 === false}
@@ -500,7 +496,7 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
         <div>
           <div class="inner-group">
             <label for="sa">Source Address</label>
-  
+
           </div>
           <input
             disabled={ipv4 === false}
@@ -552,7 +548,7 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
         ></input>
         <div class="inner-group">
           <label for="udp-sa">Source Address</label>
-   
+
         </div>
         <input
           disabled={udp === false}
@@ -579,7 +575,7 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
       </form>
       <form id="gen-form-7">
         <header>Payload</header>
- 
+
         <div>
           <label>Type</label>
           <select value={payload} onChange={(e) => updatePayload(e.target.value, formPort)}>
@@ -603,7 +599,7 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
         ></input>
         <div
           style={{
-            display: payload === "Fixed"? "block" : "none",
+            display: payload === "Fixed" ? "block" : "none",
           }}
         >
           <div class="inner-group">
@@ -617,38 +613,38 @@ onChange={(e) => updateIBGUnit(e.target.value, formPort)}>
         </div>
         <div
           style={{
-            visibility: payload === "BERT"? "visible" : "hidden",
+            visibility: payload === "BERT" ? "visible" : "hidden",
           }}
         >
           <div class="inner-group">
             <label for="BERT-pattern">Pattern</label>
           </div>
           <select value={BERTPattern} onChange={(e) => updateBERTPattern(e.target.value, formPort)}>
-          <option value="0">
-            PRBS3
-          </option>
-          <option value="1">
-          PRBS9
-          </option>
-          <option value="2">
-          PRBS11
-          </option>
-          <option value="3">
-          PRBS15
-          </option>
-          <option value="4">
-          PRBS23
-          </option>
-          <option value="5">
-          PRBS31
-          </option>
-          <option value="8">
-            Ones
-          </option>
-          <option value="9">
-            Zeroes
-          </option>
-        </select>
+            <option value="0">
+              PRBS3
+            </option>
+            <option value="1">
+              PRBS9
+            </option>
+            <option value="2">
+              PRBS11
+            </option>
+            <option value="3">
+              PRBS15
+            </option>
+            <option value="4">
+              PRBS23
+            </option>
+            <option value="5">
+              PRBS31
+            </option>
+            <option value="8">
+              Ones
+            </option>
+            <option value="9">
+              Zeroes
+            </option>
+          </select>
         </div>
       </form>
     </div>
